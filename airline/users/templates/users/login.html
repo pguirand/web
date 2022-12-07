@@ -2,17 +2,16 @@
 
 {% block body %}
 
-  <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="Login">
-  </form>
+    <h1>Log In</h1>
 
-  {% if message %}
-  <p></p>
-  <p></p>
-  <div>{{ message }}</div>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
 
-  {% endif %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Login">
+    </form>
 {% endblock %}
