@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+	<title><{$titre_page}></title>
+	<link rel="stylesheet" type="text/css" href="css/general.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/pages_et_rubrique.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/choix_theme.css" media="screen" />
+</head>
+<body>
+	<div class="conteneur_body">
+			<{include file="logon.html"}>
+		<ul class="utilisateur">
+			
+		<li class="deconnexion"><a href="<{$liendeco}>"><{$deco}></a></li>
+		</ul>
+		<div class="after_utilisateur"></div>
+	<{include file="menu.html"}>
+		<{include file="smenuconfig.html"}>
+		<div class="interface">
+			<h2>Gestion des configurations</h2>
+			<p>C'est ici que vous pouvez gérer les configurations, voir les configurations ainsi que les modifiés</p>
+			<h3></h3>
+			
+		</div>
+	</div>
+</body>
+</html>

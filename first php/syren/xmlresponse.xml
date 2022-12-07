@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?> 
+<response>  
+	<command method="alert">  
+		<message>Sorry, the username 'username' is already in use!</message>  
+	</command>  
+	<command method="setdefault">  
+		<target>NUM_NIF</target>  
+	</command>  <
+	command method="focus"> 
+		<target>NUM_NIF</target> 
+	</command> </response>

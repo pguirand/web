@@ -1,0 +1,42 @@
+
+<center>
+<{if ($modif==1) }>
+
+<form name="modif" action="gestiongroupes.php?mod=1&idgroupe=<{$idgroupe}>" method="post" >
+<{else}>
+<form name="add" action="gestiongroupes.php?ad=1" method="post" >
+<{/if}>
+
+<table width="491" border="0"  bgcolor="#CCCCCC">
+  <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Nom
+      du groupe : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="groupe" type="text" id="groupe" value="<{$groupe}>">
+      </div>
+    </td>
+  </tr>
+
+  
+
+   
+</table>
+<{if ($modif==1) }>
+<input type="submit" name="Submit" value="Modifier le groupe" onclick="return confirm('Êtes-vous sûr(e) de modifier le groupe ?');">
+</form>
+
+	<{if (!empty($lock)) }>
+	<input type="submit" name="Submit" value="Supprimer le groupe"  onclick="alert('Suppression impossible plusieurs utilisateurs sont attaché à ce groupe');">
+	 <{else}>
+	 <form name="suppr" action="gestiongroupes.php?sup=1&idgroupe=<{$idgroupe}>" method="post" >
+	 <input type="submit" name="Submit" value="Supprimer le groupe" onclick="return confirm('Êtes-vous sûr(e) de supprimer le groupe ?');">
+	 </form>
+	 <{/if}>
+
+
+<{else}>
+<input type="submit" name="Submit" value="Ajouter un groupe">
+</form>
+<{/if}>
+
+</center>

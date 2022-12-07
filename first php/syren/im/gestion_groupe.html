@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+	<title><{$titre_page}></title>
+	<link rel="stylesheet" type="text/css" href="css/general.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/pages_et_rubrique.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/choix_theme.css" media="screen" />
+	
+
+</head>
+<body>
+
+<script language='JavaScript'>
+			function ChangeUrlmodif(formulaire)
+			{
+			if (formulaire.modif.selectedIndex != 0)
+			{
+			location.href = formulaire.modif.options[formulaire.modif.selectedIndex].value;
+			}
+			else 
+			{
+	
+			}
+			}
+			</script>
+
+	<div class="conteneur_body">
+			<{include file="logon.html"}>
+		<ul class="utilisateur">
+			
+		<li class="deconnexion"><a href="<{$liendeco}>"><{$deco}></a></li>
+		</ul>
+		<div class="after_utilisateur"></div>
+	<{include file="menu.html"}>
+		<{include file="smenuconfig.html"}>
+		<div class="interface">
+			<h2>Configuration > Gestion des groupes  </h2>
+			<p align="center"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><{$message}></font></strong></p>
+			<p>il y a actuellement <strong><{$nombre}> groupe(s)</strong></p>
+			<div class="selection_theme">
+		<ul class="pages_et_rubriques">
+		<form name="formulaire" method="post">
+				<center>Sélectionner votre groupe : <select name="modif" id="formulaire" onChange='ChangeUrlmodif(this.form)'><{$smartbox}></select></center>
+		</form>
+		</ul>
+			<{include file="formulaire-ajout-groupe.html"}>
+			
+			
+</div>
+	</div>
+</body>
+</html>

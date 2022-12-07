@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_listepub" value="name:ID_PUB;datatype:int,name:TITRE_PUB;datatype:string,name:TYPE_PUB;datatype:string,name:DATE_PUB;datatype:date,name:CONTENU_PUB;datatype:string,name:STATUT;datatype:string,name:ID_UTIL;datatype:int,name:NOM_GROUPE;datatype:string" />
+</info>

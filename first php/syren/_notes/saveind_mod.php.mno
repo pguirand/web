@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_DEPARTEMENT" value="name:ID_DEPT;datatype:int,name:NOM_DEPT;datatype:string,name:DATE_CREATION;datatype:datetime,name:DATE_MODIFICATION;datatype:datetime,name:CREE_PAR;datatype:string,name:MODIFIE_PAR;datatype:string" />
+	<infoitem key="UD_ARRONDISSEMENT" value="name:ID_ARRON;datatype:int,name:NOM_ARRON;datatype:string" />
+	<infoitem key="UD_SECCOM" value="name:ID_SECCOM;datatype:int,name:NOM_SECCOM;datatype:string" />
+	<infoitem key="UD_COMMUNE" value="name:ID_COM;datatype:int,name:NOM_COM;datatype:string" />
+</info>

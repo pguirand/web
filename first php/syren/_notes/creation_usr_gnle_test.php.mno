@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_IDENTIT" value="name:ID_ENTITE;datatype:string,name:NOM_ENTITE;datatype:string" />
+	<infoitem key="UD_SELECTGROUP" value="name:ID_GROUPE;datatype:int,name:NOM_GROUPE;datatype:string" />
+</info>

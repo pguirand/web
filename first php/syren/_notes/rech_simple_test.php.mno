@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rech_entite" value="name:NOM_ENTITE;datatype:string,name:NUM_PATENTE;datatype:string,name:SECTEUR_ACTIVITE;datatype:string,name:NIVEAU;datatype:string" />
+</info>

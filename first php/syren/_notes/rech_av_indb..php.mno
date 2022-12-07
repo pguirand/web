@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_departement" value="name:ID_DEPT;datatype:int,name:NOM_DEPT;datatype:string" />
+	<infoitem key="UD_arrondissement" value="name:ID_ARRON;datatype:int,name:NOM_ARRON;datatype:string,name:ID_DEPT;datatype:int" />
+	<infoitem key="UD_arrodissment" value="name:ID_ARRON;datatype:int,name:NOM_ARRON;datatype:string,name:ID_DEPT;datatype:int" />
+</info>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_loggedUser" value="name:ID_UTIL;datatype:int,name:NOM_UTIL;datatype:string,name:MOT_PASS;datatype:string,name:STATUT;datatype:string,name:ID_GROUPE;datatype:int,name:groupe_id;datatype:int,name:ID_ENTITE;datatype:string,name:DATE_CREATION;datatype:datetime,name:DATE_MODIFICATION;datatype:datetime,name:CREER_PAR;datatype:string,name:MODIFIER_PAR;datatype:string,name:ID_IND;datatype:int,name:ID_SESSION;datatype:int" />
+	<infoitem key="UD_DetailRS1" value="name:ID_IND;datatype:int,name:G_SANG_IND;datatype:string,name:SEXE_IND;datatype:string,name:NOM_IND;datatype:string,name:PRENOM_IND;datatype:string" />
+	<infoitem key="UD_LiveData_params" value="1" />
+	<infoitem key="UD_LiveData_param0" value="recordID=1" />
+</info>

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_voyage_load" value="name:ID_VOYAGE;datatype:int,name:NOM_COMP_AERIENNE;datatype:string,name:NO_VOL;datatype:string,name:PROVENANCE_VOL;datatype:string,name:DESTINATION_VOL;datatype:string,name:DATE_CREATION_CHAMP;datatype:datetime,name:DATE_MODIFICATION_CHAMP;datatype:datetime,name:CHAMP_CREE_PAR;datatype:int,name:CHAMP_MODIFIE_PAR;datatype:int,name:ID_IND;datatype:string" />
+</info>

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_listadresse" value="name:ID_ADRESSE;datatype:int,name:NOM_RUE;datatype:string,name:ID_SECCOM;datatype:int,name:ID_ENTITE;datatype:string,name:ID_IND;datatype:string,name:ID_HIST_ADRESSE;datatype:int,name:ID_ADRESSE;datatype:int,name:NOM_RUE;datatype:string,name:ID_SECCOM;datatype:int,name:ID_ENTITE;datatype:string,name:ID_IND;datatype:string" />
+</info>

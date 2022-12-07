@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_DOCUMENT" value="name:ID_DOC;datatype:int,name:NO_DOC;datatype:string,name:TYPE_DOC;datatype:string,name:LIEU_EVENNEMENT;datatype:string,name:DATE_EVENNEMENT;datatype:datetime,name:NO_CERTIFICAT_PRENUPTIAL;datatype:int,name:DATE_CREATION_CHAMP;datatype:datetime,name:DATE_MODIFICATION_CHAMP;datatype:datetime,name:CHAMP_CREE_PAR;datatype:int,name:CHAMP_MODIFIER_PAR;datatype:int,name:CHAMP_APPROUVE_PAR;datatype:int,name:DATE_APPROBATION;datatype:datetime,name:ID_IND;datatype:string,name:ID_CONJOINT;datatype:string,name:ID_CONJOINTE;datatype:string" />
+</info>

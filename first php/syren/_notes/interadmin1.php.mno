@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:NUM_PATENTE;datatype:string,name:NOM_ENTITE;datatype:string,name:ADRESSE1;datatype:string,name:TEL1;datatype:string,name:NUM_FAX;datatype:string" />
+</info>

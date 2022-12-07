@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_loggedUser" value="name:ID_UTILISATEUR;datatype:string,name:ID_ENTITE;datatype:string,name:NOM_UTIL;datatype:string,name:MOT_PASS;datatype:string,name:DATE_CREATION;datatype:datetime,name:ID_GROUPE;datatype:int,name:STATUT;datatype:string,name:DESCRIPTION;datatype:string,name:CREE_PAR;datatype:string" />
+	<infoitem key="UD_entites_liste" value="name:Nom;datatype:string,name:Groupe;datatype:string,name:adresse;datatype:string,name:Telephone;datatype:string" />
+	<infoitem key="UD_liste_entites" value="name:Nom;datatype:string,name:Groupe;datatype:string,name:adresse;datatype:string,name:Telephone;datatype:string" />
+</info>

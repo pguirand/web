@@ -1,0 +1,137 @@
+
+<center>
+<{if ($modif==1) }>
+
+<form name="modif" action="gestionlogin.php?mod=1&id=<{$id}>" method="post" >
+<{else}>
+<form name="add" action="gestionlogin.php?ad=1" method="post" >
+<{/if}>
+
+
+<table width="491" border="0"  bgcolor="#CCCCCC">
+
+
+ <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Groupe associé</font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+	
+	<select name="groupe" id="groupe" >
+        <{$groupelist}>
+	</select>
+      </div>
+    </td>
+  </tr>
+
+ <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Nom
+      : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="nom" type="text" id="nom" value="<{$nom}>">
+      </div>
+    </td>
+  </tr>
+  
+   <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Prénom
+      : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="prenom" type="text" id="prenom" value="<{$prenom}>">
+      </div>
+    </td>
+  </tr>
+   <{if ($gestiondroit=="on") }>
+  <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Nom
+      d'utilisateur : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="identifiant" type="text" id="identifiant" value="<{$identifiant}>">
+      </div>
+    </td>
+  </tr>
+   <{/if}>
+  <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Mot de passe : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="passe" type="password" id="passe" value="<{$passe}>">
+      </div>
+    </td>
+  </tr>
+   <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Adresse e-mail : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="email" type="text" id="email" value="<{$email}>">
+      </div>
+    </td>
+  </tr>
+  
+  
+    <{if ($gestiondroit=="on") }>
+<tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Actif / Inactif : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="left">
+	<{if ($active=="on") }>
+	<input name="status" type="radio" value="1" checked > Actif 
+	<input name="status" type="radio" value="0"  > Inactif
+	 <{/if}>
+	
+	<{if ($active=="off") }>
+	<input name="status" type="radio" value="1"  > Actif 
+	<input name="status" type="radio" value="0" checked > Inactif
+	  <{/if}>
+	  
+	  <{if (empty($active)) }>
+	 	<input name="status" type="radio" value="1"  > Actif 
+	<input name="status" type="radio" value="0"  > Inactif
+	 <{/if}>
+	 
+	<br> 
+	
+      </div>
+    </td>
+  </tr>
+    <{/if}>
+  
+  
+  <{if ($gestiondroit=="on") }>
+<tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Droit utilisateur : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="left">
+	<{if ($admin=="on") }>
+	<input name="droit" type="radio" value="1" checked > Administrateur 
+	  <{else}>
+	<input name="droit" type="radio" value="1"  > Administrateur 
+	  <{/if}>
+	
+	<br> 
+	<{if ($util=="on") }>
+	<input name="droit" type="radio" value="2" checked > Modérateur
+	<{else}>
+		<input name="droit" type="radio" value="2"  > Modérateur
+    <{/if}>
+      </div>
+    </td>
+  </tr>
+    <{/if}>
+</table>
+
+   <{if ($gestiondroit=="on") }>
+   <{if ($modif==1) }>
+<input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Modifier l'utilisateur" onclick="return confirm('Êtes-vous sûr(e) de modifier l\'utilisateur ?');">
+</form>
+
+<form name="suppr" action="gestionlogin.php?sup=1&id=<{$id}>" method="post" >
+<input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Supprimer l'utilisateur" onclick="return confirm('Êtes-vous sûr(e) de supprimer l\'utilisateur ?');">
+</form>
+<{else}>
+   <input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Ajouter l'utilisateur">
+</form>
+<{/if}>
+<{else}>
+<input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Modifier l'utilisateur" onclick="return confirm('Êtes-vous sûr(e) de modifier l\'utilisateur ?');">
+</form>
+<{/if}>
+</center>

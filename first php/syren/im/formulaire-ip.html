@@ -1,0 +1,38 @@
+
+<center>
+<{if ($modif==1) }>
+
+<form name="modif" action="gestionip.php?mod=1&id=<{$id}>" method="post" >
+<{else}>
+<form name="add" action="gestionip.php?ad=1" method="post" >
+<{/if}>
+
+<table width="491" border="0"  bgcolor="#CCCCCC">
+  <tr>
+    <td width="326" bgcolor="#FFFFFF"><strong><font color="#666666" size="2" face="Verdana, Arial, Helvetica, sans-serif">Adresse IP : </font></strong></td>
+    <td width="155" bgcolor="#FFFFFF"><div align="center">
+        <input name="ip" type="text" id="ip" value="<{$ip}>">
+      </div>
+    </td>
+  </tr>
+
+  
+
+    
+</table>
+<{if ($modif==1) }>
+<input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Modifier l'IP" onclick="return confirm('Êtes-vous sûr(e) de modifier l\'IP ?');">
+</form>
+
+<form name="suppr" action="gestionip.php?sup=1&id=<{$id}>" method="post" >
+<input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Supprimer l'IP" onclick="return confirm('Êtes-vous sûr(e) de supprimer l\'IP ?');">
+</form>
+<{else}>
+   <input name="id" type="hidden" id="id" value="<{$id}>">
+<input type="submit" name="Submit" value="Ajouter l'IP">
+</form>
+<{/if}>
+
+</center>
