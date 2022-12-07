@@ -1,0 +1,236 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/close.js' %}""></script>
+{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+{% block body %}
+
+
+{% load humanize %}
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Caisse</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Ventes</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Transactions</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        
+    <div class="container-sm justify-content-center text-center text-primary fw-bold h6">
+    Affichage Caisse
+    </div>
+    <div class="container-sm fw-bold">
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Date & Heure Ouverture</div>
+      <div class="col-sm">{{ caisse.heure_ouv|date:"M d, Y" }} - {{ caisse.heure_ouv|date:"P" }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Date & Heure Fermeture</div>
+      <div class="col-sm"> {% if caisse.etat_caisse == 'OUVERT' %} - 
+        {% else %} {{ caisse.heure_close|date:"M d, Y" }} - {{ caisse.heure_close|date:"P" }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Numero Caisse / Etat Caisse</div>
+      <div class="col-sm"> {{ caisse.id }} </div>
+      <div class="col-sm fw-bold  {% if caisse.etat_caisse == 'OUVERT' %} text-success {% else %} text-danger {% endif %} ">{{ caisse.etat_caisse }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Compteur Actuel</div>
+      <div class="col-sm"> {% if caisse.etat_caisse == "OUVERT" %} {{ caisse.cur_meter }} {% else %} - {% endif %} </div>
+      <div class="col-sm"></div>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Compteur Debut / Fin</div>
+      <div class="col-sm">{{ caisse.av_meter }}</div>
+      <div class="col-sm">{% if caisse.ap_meter == 0 %}  - {% else %} {{ caisse.ap_meter }} {% endif %} </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Ventes (Nb Gal / Total Montant)</div>
+      <div class="col-sm">{{ caisse.tot_gal }} Gal</div>
+      <div class="col-sm">$ {{ caisse.tot_ventes | floatformat:1 | intcomma }} HT</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">CASH Start ( $ HT / USD )</div>
+      <div class="col-sm"> $ {{ caisse.gd_open | floatformat:1 | intcomma }} HT</div>
+      <div class="col-sm">{{ caisse.us_open | floatformat:1 | intcomma }} USD</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Total Apport ($ HT / USD)</div>
+      <div class="col-sm">+ $ {{ caisse.total_app | floatformat:1 | intcomma }} HT </div>
+      <div class="col-sm">+ {{ caisse.total_appus | floatformat:1 | intcomma }} USD</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Total Depenses ($ HT / USD)</div>
+      <div class="col-sm">- $ {{ caisse.total_dep | floatformat:1 | intcomma }} HT</div>
+      <div class="col-sm">- {{ caisse.total_depus | floatformat:1 | intcomma }} USD</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Total Achat US ($ HT / USD)</div>
+      <div class="col-sm">- $ {{ caisse.total_equiht | floatformat:1 | intcomma }} HT</div>
+      <div class="col-sm">+ {{ caisse.total_buyus | floatformat:1 | intcomma }} USD</div>
+    </div>
+    <div class="row text-center justify-content-center">
+    ** MONTANT GLOBAL **</div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">Montant Prevu ($ HT / USD)</div>
+      <div class="col-sm">$ {{ caisse.prevu_gd | floatformat:1 | intcomma }} HT</div>
+      <div class="col-sm">{{ caisse.prevu_us | floatformat:1 | intcomma }} USD</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border-end border-2 border-dark">En Caisse ($ HT / USD) </div>
+      <div class="col-sm"> $ {{ caisse.gd_close | floatformat:1 | intcomma}} HT</div>
+      <div class="col-sm"> {{ caisse.us_close | floatformat:1 | intcomma }} USD</div>
+    </div>
+  
+    <div class="row">
+        <div class="col-sm-6 border-end border-2 border-dark">Ecarts ($ HT / USD)</div>
+        <div class="col-sm {% if caisse.ecart_gd < 0 %} text-danger {% elif caisse.ecart_gd == 0 %} text-success {% endif %} "> $ {{ caisse.ecart_gd | floatformat:1 | intcomma }} HT </div>
+        <div class="col-sm {% if caisse.ecart_us < 0 %} text-danger {% elif caisse.ecart_us == 0 %} text-success {% endif %} "> {{ caisse.ecart_us | floatformat:1 | intcomma }} USD </div>
+    </div>
+    <!-- <div class="row">
+        {% if caisse.etat_caisse == "OUVERT" %}
+        <div class="col-sm text-center">
+            <a href="{% url 'topgaz:closing' %}">
+                <button class="btn btn-secondary">Fermer Caisse</button>
+                </a>  
+        </div>
+        {% endif %}
+    </div> -->
+    
+    </div>
+</div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="container-sm">
+            <div class="row justify-content-center text-primary fw-bold">CAISSE # {{ caisse.id }}</div>
+            <div class="row justify-content-center text-primary fw-bold {% if not caisse.etat_caisse == 'OUVERT' %} text-danger {% else %} text-success {% endif %}">{{ caisse.etat_caisse }}</div>
+            </div>
+
+
+            <div class="container-sm  table-responsive table-affich">
+                <table class="table table-sm table-striped caption-top table-responsive-sm">
+                    <caption class="fw-bold text-center text-primary fw-bold"> Liste de Ventes </caption>
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>No</th>
+                            <th>Id</th>
+                            <th>Avant</th>
+                            <th>Apres</th>
+                            <th>Qte</th>
+                            <th>Prix</th>
+                            <th>Montant</th>
+                            <th>Date - Heure</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for vente in liste %}
+                        <tr class="{% if vente.flagged == 'OUI' %}  bg-warning{% endif %}">
+                            <!-- <td>{{ forloop.revcounter }}</td> -->
+                            <td>{{ forloop.revcounter }}</td>
+                            <!-- <td>{{ forloop.counter }}</td> -->
+                            <td class="text-center">{{ vente.id }}</td>
+                            <td class="text-center">{{ vente.inmeter }}</td>
+                            <td class="text-center">{{ vente.outmeter }}</td>
+                            <td class="text-center">{{ vente.nbgal }}</td>
+                            <td>$ {{ vente.pgal }}</td>
+                            <td class="text-center">$ {{ vente.totalv|floatformat:1|intcomma }}</td>
+                            <td class="text-center">{{ vente.timev|date:"M d, Y - H:i" }}</td>
+
+                         </tr>
+                         {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center"><li>Aucune Vente</li></td>
+                        </tr>
+                         {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="container-sm table-affich table-responsive">
+            <table class="tablelg table table-sm table-striped caption-top table-responsive-sm">
+                <caption class="fw-bold text-center">Dernieres Transactions - Caisse # {{ caisse.id }} </caption>
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>Type</th>
+                        <th>$ HT</th>
+                        <th>USD</th>
+                        <th>Description</th>
+                        <th class="">Date & Heure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for transaction in ltrans %}
+                    <tr class="">
+                        <!-- <td>{{ forloop.revcounter }}</td> -->
+                        <td>{{ forloop.revcounter }}</td>
+                        <td>{{ transaction.type }}</td>
+                        <td>
+                          {% if transaction.type != "Change" %}
+                          {% if transaction.montant == 0 %} - 
+                          {% else %} 
+                          $ {{ transaction.montant|floatformat:1|intcomma }} HT 
+                          {% endif %}
+                          {% else %} -
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if transaction.type == "Change" %}
+                          {{ transaction.montant|floatformat:1|intcomma }} USD
+                          {% else %}
+                          {% if transaction.montantus == 0 %} - 
+                          {% else %}
+                          {{ transaction.montantus|floatformat:1|intcomma }} USD
+                          {% endif %}
+                          {% endif %}
+                        </td> 
+                        <td>
+                          {% if transaction.type == "Change" %}
+                          Achat US
+                          {% else %}
+                          {{ transaction.comment }}
+                          {% endif %}
+                        </td>
+                        <td> {{ transaction.timet|date:"M d, Y - H:i"}} </td>       
+                     </tr>
+                     {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center"><li>Aucune Transaction</li></td>
+                    </tr>
+                     {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+  
+
+
+`
+
+
+
+
+  
+
+{% endblock %}

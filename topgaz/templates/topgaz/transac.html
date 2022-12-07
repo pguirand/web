@@ -1,0 +1,228 @@
+{% extends 'topgaz/layout.html' %}
+
+{% load static %}
+
+{% block tscripts %}
+
+<script src="{% static 'topgaz/opera.js' %}"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+{% block title %} Details Caisse {% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+
+<div class="container-sm">
+    <div class="row">
+        <div class="col-sm newcol">
+            <div class="container-sm">
+                <div class="row">
+                    <div class="col-sm-2 newcol smalln smcol"  id="avantm">{{ courant.cur_meter }}</div>
+                    <div class="col-sm-2 newcol smalln" id="afterm"></div>
+                    <div class="col-sm-1 text-center border-top border-bottom border-start border-2 border-success">Prix:</div>
+                    <div class="col-sm-1 text-center border-top border-bottom border-end border-2 border-success" id="prix">{{param.prixgallon}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 newcol smalln smcol">Nb Gal</div>
+                    <div class="col-sm-2 newcol smalln">{{ venteform.qtgal }}</div>
+                    <div class="smalln col-sm-2 newcol justify-content-center text-center divsale">
+                        <input type="submit" class="btn btn-primary" id="vente" name="sale" value="Vendre">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 newcol smalln smcol">Total</div>
+                     <div class="col-sm-2 newcol smalln" id="buytot">{{ tot_price }}</div>
+                    <div class="col-sm-2 newcol justify-content-center text-center divsale">
+                    <a href="{% url 'topgaz:closing' %}">
+                    <button class="btn btn-secondary">Fermer</button>
+                    </a>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm newcol">
+            <div class="container-sm">
+                <div class="row">
+                    <div class="col-sm text-center">
+                        <button type="button" class="btn-info" id="erreur">Erreur</button>                      
+                        <button type="button" class="btn-secondary" id="annul">Annuler</button>
+                      </div>
+                </div>
+                <div class="row">
+                        <div class="row" id="cordiv">
+                          <div class="col-sm-auto newcol smalln" id="averr">
+                            {{ last.inmeter }}
+                          </div>
+                          <div class="col-sm-auto newcol  smalln" id="aperr">
+                            {{ last.outmeter }}
+                          </div>
+                       <div class="col-sm-auto newcol divsale">
+                        <input type="number" id="fini" maxlength="6" placeholder="Fini à" class="smtext">
+                       </div>
+                       <div class="col-sm-auto border border-2 divpay">
+                         <input type="checkbox" id="ifpay" name="ifpay">
+                         <label for="ifpay" class="smalln">P</label>
+                       </div>
+                      </div>
+                <div class="row">
+                    <!-- <div class="col-sm newcol text-center" id="cordiv2"> -->
+                        <div class="row" id="cordiv2">
+                            <div class="col-sm newcol fw-bold smalln" id="dif">
+                         </div>
+                       
+                         <div class="col-sm">
+                          <button type="button" class="btn btn-warning" id="corrig">Corriger</button>
+                         </div>
+                        </div>
+                      <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="" method="POST">
+    {% csrf_token %}
+  <div class="hidden" id="cachdiv">
+    <div class="row justify-content-center">
+      <div class="col-sm-auto newcol" id="">
+        <input type="text" id="flag" name="flag" class="form-control smtext" size="3" maxlength="3" placeholder="flag">
+      </div>
+      <div class="col-sm-2 newcol" id="">
+        <input type="number" id="errnb" name="errnb" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="nbr">
+      </div>
+      <div class="col-sm-3 newcol">
+        <input type="number" id="errafter" name="errafter" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="after">
+      </div>
+      <div class="col-sm-2 newcol" id="">
+        <input type="number" id="errmont" name="errmont" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="new mt">
+      </div>
+      <div class="col-sm-2 newcol" id="">
+        <input type="number" id="errloss" name="errloss" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="perte">
+      </div>
+      <div class="col-sm-3 newcol" id="">
+        <input type="submit" id="valerror" name="valerror" class="form-control btn btn-secondary">
+      </div>
+    </div>
+  </form>
+
+<br>
+<br>
+
+<div class="container-sm">
+    <form action="" method="POST" id="form1">
+        {% csrf_token %} 
+    {{ venteform.meterout }} 
+    {{ venteform.pgal }} 
+    {{ venteform.ptot }}
+    <div class="row">
+        {{ fiche.id_sale }}
+    </div>
+    <div class="row">
+        <div class="col-sm-2 newcol smalln smcol"  id="avantm">{{ courant.cur_meter }}</div>
+        <div class="col-sm-2 newcol smalln" id="afterm"></div>
+        <div class="col-sm-1 text-center border-top border-bottom border-start border-2 border-success">Prix:</div>
+        <div class="col-sm-1 text-center border-top border-bottom border-end border-2 border-success" id="prix">{{param.prixgallon}}</div>
+        <div class="col-sm-6 text-center">
+          <button type="button" class="btn-info" id="erreur">Erreur</button>                      
+          <button type="button" class="btn-secondary" id="annul">Annuler</button>
+
+        </div>
+
+  
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2 newcol smalln smcol">Nb Gal</div>
+        <div class="col-sm-2 newcol smalln">{{ venteform.qtgal }}</div>
+        <div class="smalln col-sm-2 newcol justify-content-center text-center divsale">
+            <input type="submit" class="btn btn-primary" id="vente" name="sale" value="Vendre">
+        </div>
+      </form>
+        <div class="col-sm-6 newcol text-center" id="cordiv">
+          <div class="row">
+            <div class="col-sm-auto newcol smalln" id="averr">
+              {{ last.inmeter }}
+            </div>
+            <div class="col-sm-auto newcol  smalln" id="aperr">
+              {{ last.outmeter }}
+            </div>
+         <div class="col-sm-auto newcol divsale">
+          <input type="number" id="fini" maxlength="6" placeholder="Fini à" class="smtext">
+         </div>
+         <div class="col-sm-auto border border-2 divpay">
+           <input type="checkbox" id="ifpay" name="ifpay">
+           <label for="ifpay" class="smalln">P</label>
+         </div>
+
+        </div>
+        
+        
+          
+        </div>
+
+        <!-- <div class="col-sm-2 newcol">Cash</div>
+        <div class="col-sm-2 newcol">{{ venteform.percash }}</div> -->
+
+
+    <div class="row">
+        <div class="col-sm-2 newcol smalln smcol">Total</div>
+        <div class="col-sm-2 newcol smalln" id="buytot">{{ tot_price }}</div>
+        
+        <div class="col-sm-2 newcol justify-content-center text-center divsale">
+          <a href="{% url 'topgaz:closing' %}">
+          <button class="btn btn-secondary">Fermer</button>
+          </a>  
+        </div>
+      
+        <div class="col-sm-6 newcol text-center" id="cordiv2">
+          <div class="row">
+          <div class="col-sm newcol fw-bold smalln" id="dif">
+            
+           </div>
+           <!-- <div class="col-sm-auto newcol">
+           
+           </div> -->
+           <div class="col-sm">
+            <button type="button" class="btn btn-warning" id="corrig">Corriger</button>
+           </div>
+            </div>
+        </div>
+        <form action="" method="POST">
+          {% csrf_token %}
+        <div class="hidden" id="cachdiv">
+          <div class="row justify-content-center">
+            <div class="col-sm-auto newcol" id="">
+              <input type="text" id="flag" name="flag" class="form-control smtext" size="3" maxlength="3" placeholder="flag">
+            </div>
+            <div class="col-sm-2 newcol" id="">
+              <input type="number" id="errnb" name="errnb" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="nbr">
+            </div>
+            <div class="col-sm-3 newcol">
+              <input type="number" id="errafter" name="errafter" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="after">
+            </div>
+            <div class="col-sm-2 newcol" id="">
+              <input type="number" id="errmont" name="errmont" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="new mt">
+            </div>
+            <div class="col-sm-2 newcol" id="">
+              <input type="number" id="errloss" name="errloss" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="perte">
+            </div>
+            <div class="col-sm-3 newcol" id="">
+              <input type="submit" id="valerror" name="valerror" class="form-control btn btn-secondary">
+            </div>
+          </div>
+        </form>
+        
+  
+        </div>
+      </div>
+
+      {% endblock %}

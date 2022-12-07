@@ -1,0 +1,79 @@
+{% extends "topgaz/layout.html" %}
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block title %}Enregistrement Utilisateur{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div class="container">
+    <div class="h2 fw-bold text-center">Enregistrement Utilisateur</div>
+</div>
+
+<div class="container-fluid newcon">
+    <form action="" method="POST">
+        {% csrf_token %}
+    <div class="col-sm newcol">
+        <div class="col-sm">Ajouter Utilisateur</div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-4 newcol d-flex justify-content-start">Nom Utilisateur:</div>
+        <div class="col-sm newcol d-flex justify-content-start">{{ form.username }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 newcol d-flex justify-content-start">Mot de Passe:</div>
+        <div class="col-sm newcol d-flex justify-content-start">{{ form.password }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm newcol">
+            <label for="ch_emp" class="cash">Attribution employe a l'utlisateur Choisi: </label>
+            <select name="emp" id="ch_emp" class="form-select form-select-md"> 
+                <option value="" selected disabled>--Assigner employe--</option>
+                {% for employe in liste %}
+                <option value="{{ employe.id }}">
+                    {{ employe.prenom }} {{ employe.nom|upper }} | Poste - {{ employe.poste.nom_poste }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm newcol">
+            <input type="submit" name="adduser" value="Enregistrer" class="btn btn-primary">
+        </div>
+    </div>
+
+    
+    </form>
+    {% if message %}
+    <div class="alert alert-success text-center" role="alert">
+        {{ message }}
+        User
+      </div>
+    {% endif %}
+  
+    
+        <!-- <div class="alert alert-success text-center">
+            Infos Employe
+            {{ choisi.id }} : {{ choisi.prenom }} {{ choisi.nom|upper }} 
+            User:{{user.username}}
+            </div> -->
+    
+   
+   
+</div>
+<ul>
+    {% for aff in liste %}
+    <li>{{ aff.utilisateur }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

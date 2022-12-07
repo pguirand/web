@@ -1,0 +1,112 @@
+{% extends "topgaz/layout.html" %}
+{% load static %}
+
+{% block tscripts %}
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- <script src="{% static 'topgaz/opera.js' %}"></script> -->
+<!-- <script src="{% static 'topgaz/topquery.js' %}"></script> -->
+
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block title %}Welcome Page{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<h1 class="cash">Bienvenue a TopGaz !</h1>
+
+<div class="container-sm" id="test22">
+    <div class="row">
+        <div class="col-sm text1">
+            L'application est un POS (Point Of Sale) permettant la gestion des operations
+            du service de produits et services associes au gaz de petrole liquefie (GPL) 
+            communement appele gaz propane. Services tels que, vente et livraison de gaz propane, 
+            ventes et reparations de bouteilles de propane. vente et reparations de 
+            materiels et ustensils de cuisine fonctionnant a propane.  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm text1">
+        <!-- <div class="col-sm text-justify"> -->
+            Si vous etes un employe ayant un utilisateur. Vous pouvez vous connecter 
+    ci-dessous. Contacter le sercice Administration si vous avez des problmes lies a 
+    votre connexion. Merci de votre cooperation.
+        </div>
+    </div>
+
+</div>
+<!-- {{ request.user.first_name }} -->
+<!-- Button trigger modal -->
+{% if not user.is_authenticated %}
+<div class="container d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexionUser">
+        Connexion
+      </button> 
+</div>
+{% else %}
+<div class="container d-flex justify-content-center">
+  <a href="{% url 'topgaz:plogout' %}"><button type="button" class="btn btn-primary">
+      Deconnecter
+    </button> </a>
+    <!-- <button id="tprint" onclick="window.print()">Print</button> -->
+    <a href="my.bluetoothprint.scheme://http://unitek.herokuapp.com/topgaz/myprint"><button>Print</button></a>
+    <!-- <a href="{% url 'topgaz:myprint' %}"><button>Print</button></a> -->
+
+    <!-- my.bluetoothprint.scheme:// -->
+
+</div>
+{% endif %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="connexionUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Connexion Utilisateur</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'topgaz:index' %}" method="POST">
+              {% csrf_token %}
+            <div class="row d-flex justify-content-start">
+                <div class="col-sm">
+                    {{ form }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <input type="submit" name="uconnect" value="Connecter" class="btn btn-primary">
+
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  <div class="cash">
+  {{ form.errors }}
+  {% if message %}
+  <div class="alert alert-danger" role="alert"> 
+    {{ message }}
+  </div>
+  {% endif %}
+
+  <!-- <div id="success-alert" class="alert alert-success" role="alert"> 
+    Test Alert
+  </div> -->
+ 
+  </div>
+  
+
+
+
+
+
+
+{% endblock %}

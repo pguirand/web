@@ -1,0 +1,108 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/top1.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+
+{% block title %}Caisse{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div id="head">
+    <h1>TopTek Multiservices</h1>
+</div>
+<div id="main">
+    <div id="left">
+        <h3>Menu & Links</h3>
+        <a href="{% url 'topgaz:param' %}" style="float:right;">Parametres</a>
+    </div>
+    <div id="right">
+        <div class="cash">Interface Caisse </div>
+       
+        <div class="">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <!-- {{ form.as_ul }} -->
+                <table class="resume">
+                    <caption>Start</caption>
+                    <tr>   
+                        <th>Compteur Actuel</th>
+                        <td class="actmeter"><div id="contmeter" class="nowmeter">{{ now_meter }}</div></td>
+                            <td class="modifier"><div><button id="butmod">Modifier</button></div></td> 
+                            <td id="modinput"> {{ form.meter_av }} <button id="butok">OK</button></td>
+                    </tr>
+                 
+                </table>
+                <table class="resume">
+                    <tr>
+                        <th>$HT</th><th>{{ form.gdes_ouvert }}</th>
+                        <th>USD</th><th>{{ form.us_ouvert }}</th>
+                        <th>Prix</th><td class="nowmeter"> {{ param.prixgallon }} </td>
+                    </tr>
+                   </table>
+     
+                <!-- <div id="space">
+                    <div class="input">Montant ($ HT)</div><div>{{ form.gdes_ouvert }}</div>
+                    <div class="input">Montant ($ US)</div><div>{{ form.us_ouvert }}</div>
+                    <div class="input">Compteur Actuel</div><div class="nowmeter"> {{ now_meter }} </div>
+                </div> -->
+                <div style="clear: both;"></div>
+
+                <div class="cash"><input type="submit" value="Ouverture"></div>
+            </form>
+        </div>
+            <table class="ltable">
+            <tr class="theader3">
+                <th></th>
+                <th></th>
+                <th colspan="2">CASH</th>
+                <th></th>
+            </tr>
+            
+            <tr class="theader">
+                <th>No</th><th>Start</th><th>$ HT</th>
+                <th>USD</th><th>Tot Gal</th>
+            </tr>
+            {% for result in results %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}
+                        alist
+                        {% else %}
+                        blist
+                        {% endif %}">
+                <td>{{ result.id }}</td>
+                <td>{{ result.av_meter }}</td>
+                <td>{{ result.gd_open }}</td>
+                <td>{{result.us_open}}</td>
+                <td>{{ result.tot_gal }}</td>          
+             </tr>
+             {% empty %}
+            <tr>
+                <td>No Results</td>
+            </tr>
+             {% endfor %}
+
+                        </table>
+                <!-- {{ result.id }} - Start : {{ result.av_meter }} - $ {{ result.gd_open }} HT - {{result.us_open}} USD : 
+                 Vente: {{ result.tot_gal }} Gallons  -->
+
+            <p></p>
+        
+         <div class="cash"><a href="{% url 'topgaz:index' %}">Retour a Topgaz</a></div>
+
+    </div>
+    
+    <div style="clear: both;"></div>
+
+</div>
+
+{% endblock %}

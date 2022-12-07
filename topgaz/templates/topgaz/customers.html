@@ -1,0 +1,45 @@
+{% extends "topgaz/layout.html" %}
+
+{% block body %}
+
+<h1>Customers</h1>
+test statut: {{ statut }}
+test niveau: {{ niveau }}
+
+<ul>
+    {% for customer in customers %}
+    <li> {{ customer.prenom }} {{ customer.nom }}-{{ customer.niveau }} {{ customer.statut }} </li>
+    {% empty %}
+    No Customers
+    {% endfor %}
+</ul>
+<p>Nouveau Client:</p>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form | linebreaks }}
+
+    <!--<input type="text" name="nom" placeholder="Nom">
+    <input type="text" name="prenom" placeholder="Prenom">
+    <p></p>
+    <label for="nivel" >Niveau : </label>
+    <select name="nivel" id="">
+        <option value="MOYEN">Moyen</option>
+        <option value="NTERESSANT">Interessant</option>
+        <option value="VIP">V.I.P</option>
+    </select>
+    <p></p>
+    <label for="statut">Statut : </label><br>
+   
+   <label for="actif">Actif</label>
+    <input type="radio" name="statut" value="actif" checked> Actif<br>
+    <label for="inactif">Inactif</label>
+    <input type="radio" name="statut" value="inactif"> Inactif
+    <p></p> -->
+
+    <input type="submit" value="Ajouter" name="" id="">
+
+</form>
+<p></p>
+
+<a href="{% url 'topgaz:index' %}">Accueil Topgaz</a>
+{% endblock %}

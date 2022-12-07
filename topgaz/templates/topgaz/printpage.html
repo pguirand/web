@@ -1,0 +1,151 @@
+{% extends 'topgaz/layout.html' %}
+
+{% load static %}
+
+{% block tscripts %}
+
+<!-- <script src="{% static 'topgaz/opera.js' %}"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="{% static 'topgaz/topquery.js' %}"></script>
+<script src="{% static 'topgaz/print.js' %}"></script>
+
+
+
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+{% block title %} Print Page {% endblock %}
+
+{% block body %}
+
+
+
+<div class="container">
+  {{ diff1 }}
+  {{ diff2 }}
+</div>
+<div class="row justify-content-center">
+  <div class="col-sm-2 text-center">
+    <button id="showpos" class="btn btn-primary">Imprimer</button>
+  </div>
+  <div class="col-sm-2 text-center">
+    <!-- <a href="{% url 'topgaz:detcaisse' %}"></a> -->
+    <button id="back" class="btn btn-secondary">Retour</button>
+  </div>
+
+</div>
+
+<div id="pos">
+  <div id="top">
+    <!-- style="background-image: url({% static 'topgaz/logogaz.png' %});" -->
+    <!-- <div class="logo"></div> -->
+    <!-- <img src="{% static 'topgaz/logogaz.png' %}" alt="" height="40"> -->
+
+    <div class="info">
+      <h2>PROLIGAZ</h2>
+      <h4>Gaz Propane</h4>
+    </div>
+    <!--End Info-->
+  </div>
+  <!--End InvoiceTop-->
+
+  <div id="mid">
+    <div class="info">
+      <h4>Reçu No {{ fiche.id }}</h4>
+      <p style="align-items: center;">
+        14, Imp Bayard, Del. 33</br>
+        Email : proligazd@gmail.com</br>
+        Tel / WApp : (509)4423-5955</br>
+      </p>
+      <p> {{ time|date:"M d, Y" }} - {{ time|date:"P" }} </p>
+    </div>
+  </div>
+  <!--End Invoice Mid-->
+
+  <div id="bot">
+
+    <div id="table">
+      <table>
+        <tr>
+          <td style="float: inherit;">{{ fiche.inmeter }}</td>
+          <td style="margin-left: 3px;"> >></td>
+          <td id="metapr">{{ fiche.outmeter }}</td>
+        </tr>
+        
+        <!-- <tr class="tabletitle">
+          <td class="item">
+            <h2>Avant</h2>
+          </td>
+          <td class="Hours">
+            <h2></h2>
+          </td>
+          <td class="Rate">
+            <h2>Apres</h2>
+          </td>
+        </tr> -->
+<!--                 
+        <tr class="service">
+          <td class="tableitem">
+            <p class="itemtext">{{ courant.cur_meter }}</p>
+          </td>
+          <td class="tableitem">
+            <p class="itemtext"></p>
+          </td>
+          <td class="tableitem">
+            <p class="itemtext" id="metapr"></p>
+          </td>
+        </tr> -->
+        <tr class="tabletitle">
+          <td class="item">
+            <h2>Nb Gal</h2>
+          </td>
+          <td class="Hours">
+            <h2>Unit.</h2>
+          </td>
+          <td class="Rate">
+            <h2>Total</h2>
+          </td>
+        </tr>
+        <tr class="service">
+          <td class="tableitem">
+            <p class="itemtext" id="nbr"> {{ fiche.nbgal }} </p>
+          </td>
+          <td class="tableitem">
+            <p class="itemtext" style="float: left;">$ {{ fiche.pgal }}</p>
+          </td>
+          <td class="tableitem">
+            <p class="itemtext" id="montantt">{{ fiche.totalv }}</p>
+          </td>
+        </tr>
+        <tr class="tabletitle">
+          <td>Total</td>
+          <td class="Rate">
+          </td>
+          <td class="payment" id="alltot" style="float: left;">
+            <h2>$ {{ fiche.totalv }}</h2>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--End Table-->
+
+    <div id="legalcopy">
+    <br>
+      <p class="legal"><strong>Merci de votre fidélité !</strong>  
+           
+      </p>
+    </div>
+
+  </div>
+  <!--End InvoiceBot-->
+</div>
+<!--End Invoice-->  
+
+
+
+{% endblock %}

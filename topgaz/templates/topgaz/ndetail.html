@@ -1,0 +1,671 @@
+{% extends 'topgaz/layout.html' %}
+
+{% load static %}
+
+{% block tscripts %}
+
+<script src="{% static 'topgaz/opera.js' %}"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+{% block title %} Details Caisse {% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div class="hidden">Caisse  {{ transform.temp }} <div class="tempval">{{ value }}</div>  </div>
+
+
+
+
+<div class="container-sm">
+    <div class="row justify-content-center newcol">
+        <div class="col-sm">Session # {{ courant.id }}</div>
+        <div class="col-sm text-end">{{ courant.heure_ouv }}</div>
+    </div>
+    <div class="row justify-content-center text-center fw-bold">
+        <div class="col-sm-4 newcol bg-light text-success border border-dark">Compteur</div>
+        <div class="col-sm newcol bg-light text-success border border-dark">CASH</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 newcol smalln">Start</div>
+        <div class="col-sm-2 newcol smalln">Now</div>
+        <div class="col-sm-1 newcol text-start fs-6 smalln">Start</div>
+        <div class="col-sm newcol fw-bold">$ {{ courant.gd_open | floatformat:2 | intcomma }} HT</div>
+        <div class="col-sm newcol fw-bold">{{ courant.us_open | floatformat:2 | intcomma }} USD</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 newcol fw-bold smalln">{{ courant.av_meter }}</div>
+      <div class="col-sm-2 newcol fw-bold smalln">{{ courant.cur_meter }}</div>
+      <div class="col-sm-1 newcol smalln">Now</div>
+      <div class="col-sm newcol fw-bold text-primary">${{ live_ht | floatformat:2 | intcomma }} HT</div>
+      <div class="col-sm newcol fw-bold text-primary">{{ live_us | floatformat:2 | intcomma }} USD</div>
+  </div>
+</div>
+<!-- 1 : {{ link1 }} {{ tab1 }} </br>
+2 : {{ link2 }} {{ tab2 }} -->
+
+
+
+
+<div class="container-sm">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link {{link1}}" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ventes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link {{link2}} " id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Transactions</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Sommaire</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade {{tab1}}" id="home" role="tabpanel" aria-labelledby="home-tab">
+      
+          
+          <div class="container-sm">
+                <form action="" method="POST" id="form1">
+                    {% csrf_token %} 
+                {{ venteform.meterout }} 
+                {{ venteform.pgal }} 
+                {{ venteform.ptot }}
+                {% if caisse.etat_caisse == "OUVERT" %}
+                <div class="row">
+                    {{ fiche.id_sale }}
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 newcol smalln smcol"  id="avantm">{{ courant.cur_meter }}</div>
+                    <div class="col-sm-2 newcol smalln" id="afterm"></div>
+                    <div class="col-sm-1 text-center border-top border-bottom border-start border-2 border-success">Prix:</div>
+                    <div class="col-sm-1 text-center border-top border-bottom border-end border-2 border-success" id="prix">{{param.prixgallon}}</div>
+                    <div class="col-sm-6 text-center">
+                      <button type="button" class="btn-info" id="erreur">Erreur</button>                      
+                      <button type="button" class="btn-secondary" id="annul">Annuler</button>
+
+                    
+                </div>
+             
+
+  
+                <div class="row">
+                    <div class="col-sm-2 newcol smalln smcol">Nb Gal</div>
+                    <div class="col-sm-2 newcol smalln">{{ venteform.qtgal }}</div>
+                    <div class="smalln col-sm-2 newcol justify-content-center text-center divsale">
+                        <input type="submit" class="btn btn-primary" id="vente" name="sale" value="Vendre">
+                    </div>
+                  </form>
+                    <div class="col-sm-6 newcol text-center" id="cordiv">
+                      <div class="row">
+                        <div class="col-sm-auto newcol smalln" id="averr">
+                          {{ last.inmeter }}
+                        </div>
+                        <div class="col-sm-auto newcol  smalln" id="aperr">
+                          {{ last.outmeter }}
+                        </div>
+                     <div class="col-sm-auto newcol divsale">
+                      <input type="number" id="fini" maxlength="6" placeholder="Fini à" class="smtext">
+                     </div>
+                     <div class="col-sm-auto border border-2 divpay">
+                       <input type="checkbox" id="ifpay" name="ifpay">
+                       <label for="ifpay" class="smalln">P</label>
+                     </div>
+
+                    </div>
+                    
+                    
+                      
+                    </div>
+
+                    <!-- <div class="col-sm-2 newcol">Cash</div>
+                    <div class="col-sm-2 newcol">{{ venteform.percash }}</div> -->
+
+                </div>
+            
+                <div class="row">
+                    <div class="col-sm-2 newcol smalln smcol">Total</div>
+                    <div class="col-sm-2 newcol smalln" id="buytot">{{ tot_price }}</div>
+                    
+                    <div class="col-sm-2 newcol justify-content-center text-center divsale">
+                      <a href="{% url 'topgaz:closing' %}">
+                      <button class="btn btn-secondary">Fermer</button>
+                      </a>  
+                    </div>
+                  
+                    <div class="col-sm-6 newcol text-center" id="cordiv2">
+                      <div class="row">
+                      <div class="col-sm newcol fw-bold smalln" id="dif">
+                        
+                       </div>
+                       <!-- <div class="col-sm-auto newcol">
+                       
+                       </div> -->
+                       <div class="col-sm">
+                        <button type="button" class="btn btn-warning" id="corrig">Corriger</button>
+                       </div>
+                        </div>
+                    </div>
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                    <div class="hidden" id="cachdiv">
+                      <div class="row justify-content-center">
+                        <div class="col-sm-auto newcol" id="">
+                          <input type="text" id="flag" name="flag" class="form-control smtext" size="3" maxlength="3" placeholder="flag">
+                        </div>
+                        <div class="col-sm-2 newcol" id="">
+                          <input type="number" id="errnb" name="errnb" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="nbr">
+                        </div>
+                        <div class="col-sm-3 newcol">
+                          <input type="number" id="errafter" name="errafter" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="after">
+                        </div>
+                        <div class="col-sm-2 newcol" id="">
+                          <input type="number" id="errmont" name="errmont" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="new mt">
+                        </div>
+                        <div class="col-sm-2 newcol" id="">
+                          <input type="number" id="errloss" name="errloss" class="form-control smtext" step="0.1" size="5" maxlength="6" placeholder="perte">
+                        </div>
+                        <div class="col-sm-3 newcol" id="">
+                          <input type="submit" id="valerror" name="valerror" class="form-control btn btn-secondary">
+                        </div>
+                      </div>
+                    </form>
+                    
+              
+                    
+                  </div>
+                  {% else %}
+                  <div class="container-sm">
+                    <div class="row text-primary h3 justify-content-center fw-bold">CAISSE FERMEE</div>
+                  </div>
+                  {% endif %}
+                
+           
+                     
+                <div class="container-sm table-responsive">
+                  <table class="table table-sm table-striped caption-top table-responsive-sm">
+                      <caption class="fw-bold text-center">Ventes ( {{ sum_gal | floatformat:1}} Gal ) - Caisse # {{ courant.id }} - {{ courant.etat_caisse }} </caption>
+                      <thead class="table-light">
+                          <tr class="text-center">
+                              <th>No</th>
+                              <th>Id</th>
+                              <th>Avant</th>
+                              <th>Apres</th>
+                              <th>Qte</th>
+                              <th>Prix</th>
+                              <th>Montant</th>
+                              <th class="text-info">Qte</th>
+                              <!-- <th>Flag</th> -->
+                              <th>Perte</th>
+
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for vente in list_vent %}
+                          <tr class="{% if vente.flagged == 'OUI' %}  bg-warning{% endif %}">
+                              <!-- <td>{{ forloop.revcounter }}</td> -->
+                              <td>{{ forloop.revcounter }}</td>
+                              <!-- <td>{{ forloop.counter }}</td> -->
+                              <td class="text-center">{{ vente.id }}</td>
+                              <td class="text-center">{{ vente.inmeter }}</td>
+                              <td class="text-center">{{ vente.outmeter }}</td>
+                              <td class="text-center">{{ vente.nbgal }}</td>
+                              <td>$ {{ vente.pgal }}</td>
+                              <td class="text-center">$ {{ vente.totalv }}</td>
+                              <td class="text-center"> {{ vente.nberr }} </td>
+                              <!-- <td> {{ vente.flagged }} </td> -->
+                              <td class="text-center">$ {{ vente.perte }} </td>
+                           </tr>
+                           {% empty %}
+                          <tr>
+                              <td colspan="7" class="text-center"><li>Aucune Vente</li></td>
+                          </tr>
+                           {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+                            
+           
+        </div>
+        <div class="tab-pane fade {{tab2}} " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="container-sm">
+              {% if caisse.etat_caisse == "OUVERT" %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                
+                <div class="row justify-content-center">
+                    <div class="col-sm-2 newcol">{{ transform.tmontant_dep }}</div>
+                    <div class="col-sm-4 newcol">{{ transform.tcomment_dep }}</div>
+                    <div class="col-sm-3 mtags newcol">
+                        {% for espece in transform.tespece %}
+                        <div class="especel"> {{ espece.choice_label }} </div>
+                        <div class="especec"> {{ espece.tag }} </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-3 newcol">
+                        <button type="submit" name="but_dep" class="btn btn-primary newsubmit">Depense</button>
+                    </div>
+                
+                </div>
+            </form>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row justify-content-center">
+                    <div class="col-sm-2 newcol">{{ transform.tmontant_app }}</div>
+                    <div class="col-sm-4 newcol">{{ transform.tcomment_app }}</div>
+                    <div class="col-sm-2 newcol mtags">
+                        {% for espece in transform.t2espece %}
+                            <div class="especel"> {{ espece.choice_label }} </div>
+                            <div class="especec"> {{ espece.tag }} </div>
+            {% endfor %}
+                    </div>
+                    <div class="col-sm-3 newcol">
+                        <button type="submit" name="but_app" class="btn btn-primary newsubmit">Apport</button>
+                    </div>               
+                </div>
+            </form>
+
+                 <form action="" method="POST">
+                     {% csrf_token %}
+                <div class="row justify-content-center">
+                    <div class="col-sm-2 newcol">{{ transform.tmontant_us }}</div>
+                    <div class="col-sm-4 newcol fw-bold text-center">Achat USD => $ HT</div>
+                    <div class="col-sm-3 mtags newcol fw-bold" id="ceg"></div>
+
+                    <div class="col-sm-3 newcol">
+                        <div id="rate" class="hidden">{{param.tauxdujour}}</div>
+                        <button type="submit" name="but_ch" class="btn btn-primary newsubmit">Changer</button>
+                    </div>
+
+                </div>
+            </form>
+            {% else %}
+            <div class="container-sm">
+              <div class="row text-primary h3 justify-content-center fw-bold">CAISSE FERMEE</div>
+            </div>
+            {% endif %}
+            <div class="container-sm table-responsive">
+              <table class="table table-sm table-striped caption-top table-responsive-sm">
+                  <caption class="fw-bold text-center">Dernieres Transactions - Caisse # {{ courant.id }} </caption>
+                  <thead class="table-light">
+                      <tr class="text-center">
+                          <th>No</th>
+                          <th>Type</th>
+                          <th>$ HT</th>
+                          <th>USD</th>
+                          <th>Description</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for transaction in list_trans %}
+                      <tr>
+                          <!-- <td>{{ forloop.revcounter }}</td> -->
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ transaction.type }}</td>
+                          <td>
+                            {% if transaction.type != "Change" %}
+                            {{ transaction.montant }}
+                            {% endif %}
+                          </td>
+                          <td>
+                            {% if transaction.type == "Change" %}
+                            {{ transaction.montant }}
+                            {% else %}
+                            {{ transaction.montantus }}
+                            {% endif %}
+                          </td> 
+                          <td>
+                            {% if transaction.type == "Change" %}
+                            Achat US
+                            {% else %}
+                            {{ transaction.comment }}
+                            {% endif %}
+                          </td>
+                          <td>--</td>       
+                       </tr>
+                       {% empty %}
+                      <tr>
+                          <td colspan="6" class="text-center"><li>Aucune Transaction</li></td>
+                      </tr>
+                       {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+            <!-- <div class="listrans">
+                <ul>
+                    {% for transaction in list_trans %}
+                    {% if transaction.type != "Change" %}
+                    <li>{{ transaction.id }} - {{ transaction.type }} - 
+                        {% if transaction.montant != 0.00 %}
+                        $ {{ transaction.montant | floatformat:2 | intcomma }} HT |
+                        {% endif %}
+                        {% if transaction.montantus != 0.00 %}
+                        {{ transaction.montantus | floatformat:2 | intcomma }} USD |
+                        {% endif %}
+                        Descr. : {{ transaction.comment }} -       
+                        # Caisse : {{ transaction.caisse.id }}
+                    </li>
+                    {% else %}
+                    <li>
+                        {{ transaction.id }} - {{ transaction.type }} - {{ transaction.montant | floatformat:2 | intcomma}} USD -
+                        pour : $ {{ transaction.equiht | floatformat:2 | intcomma}} HT | Taux {{ transaction.tdj }}      
+                        # Caisse : {{ transaction.caisse.id }}
+                    </li>
+                    {% endif %}
+                    {% empty %}
+                    <li>No Transactions</li>
+                    {% endfor %}
+                </ul>
+            </div>
+             -->
+            </div>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="container-sm border border-3 border-info">
+              {% if not caisse.etat_caisse == "OUVERT" %}
+              <div class="row h3 justify-content-center text-primary fw-bold">CAISSE FERMEE</div>
+              {% endif %}
+                <div class="row justify-content-center fw-bold text-center">
+                    <div class="col-sm">Sommaire</div>
+                </div>
+                <div class="row border newcol fw-bold border-info">
+                    <div class="col-sm-6 text-center border-end border-2 border-info">Compteurs</div>
+                    <div class="col-sm text-center border-end border-info">Gallons</div>
+                    <div class="col-sm text-center">Prix Gal.</div>
+
+
+                </div>
+                <!-- <div class="row">
+                    <div class="col-sm-2">Debut</div>
+                    <div class="col-sm-2">Actuel</div>
+                    <div class="col-sm-2">Fin</div>
+                    <div class="col-sm">Quantite</div>
+                    <div class="col-sm">Montant</div>
+                </div> -->
+                <div class="row border fw-bold">
+                    <div class="col-sm-3 text-center border-end border-info">{{ courant.av_meter }}</div>
+                    <div class="col-sm-3 text-center border-2 border-end border-info">{{ courant.cur_meter }}</div>
+                    <div class="col-sm text-center border-end border-info">{{ sum_gal | floatformat:1}} Gal</div>
+                    <div class="col-sm text-center">$ {{param.prixgallon}} HT</div>
+                </div>
+                </div>
+                <div class="container-sm border border-success border-3">
+                <div class="row">
+                    <div class="col-sm-3 bg-info bg-gradient text-light"></div>
+                    <div class="col-sm bg-info text-white fw-bold bg-gradient border-bottom  border-end border-2 border-info text-center">$ HT</div>
+                    <div class="col-sm bg-info text-white fw-bold bg-gradient border-bottom border-2 border-info text-center">USD</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 border-end border-2 border-info">Ouverture</div>
+                    <div class="fw-bold col-sm actif border-end border-2 border-info"> &nbsp;&nbsp;&nbsp;$ {{ courant.gd_open | floatformat:2 | intcomma }} HT</div>
+                    <div class="fw-bold col-sm actif">&nbsp;&nbsp;&nbsp; {{ courant.us_open | floatformat:2 | intcomma }} USD</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 border-end border-2 border-info">Ventes</div>
+                    <div class="col-sm actif border-end border-2 border-info">+ $ {{sum_vente | floatformat:2 | intcomma }} HT</div>
+                    <div class="col-sm"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 border-end border-2 border-info">Depenses</div>
+                    <div class="col-sm passif border-end border-2 border-info">- $ {{ sum_dep | floatformat:2 | intcomma }} HT</div>
+                    <div class="col-sm passif">- {{ sum_depus | floatformat:2 | intcomma }} USD</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 border-end border-2 border-info">Apports</div>
+                    <div class="col-sm actif border-end border-2 border-info">+ $ {{ sum_app | floatformat:2 | intcomma }} HT</div>
+                    <div class="col-sm actif">+ {{ sum_appus | floatformat:2 | intcomma }} USD</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 border-end border-2 border-info">Achats US</div>
+                    <div class="col-sm passif border-end border-2 border-info">- $ {{ sum_equiht | floatformat:2 | intcomma }} HT</div>
+                    <div class="col-sm actif">+ {{ sum_us | floatformat:2 | intcomma}} USD</div>
+                </div>
+                <div class="row bg-secondary text-light">
+                    <div class="col-sm-3 border-end border-2 border-info fw-bold">En Caisse</div>
+                    <div class="col-sm livetot border-end border-2 border-info">$ {{ live_ht | floatformat:2 | intcomma }} HT </div>
+                    <div class="col-sm livetot">{{ live_us | floatformat:2 | intcomma }} USD</div>
+                </div>
+            </div>
+            {% if caisse.etat_caisse == "OUVERT" %}
+            <div class="constainer-sm divclose">
+              <div class="row text-center">
+                <div class="col-sm">
+                  <a href="{% url 'topgaz:closing' %}">
+                    <button class="btn btn-secondary">Fermer Caisse</button>
+                </a>
+              </div>
+              </div>
+            </div>
+            {% endif %}
+        </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+<!-- Working Recu -->
+
+<div id="pos">
+    <div id="top">
+      <!-- style="background-image: url({% static 'topgaz/logogaz.png' %});" -->
+      <!-- <div class="logo"></div> -->
+      <!-- <img src="{% static 'topgaz/logogaz.png' %}" alt="" height="40"> -->
+
+      <div class="info">
+        <h2>PROLIGAZ</h2>
+        <h4>Gaz Propane</h4>
+      </div>
+      <!--End Info-->
+    </div>
+    <!--End InvoiceTop-->
+  
+    <div id="mid">
+      <div class="info">
+        <h4>Reçu de Vente</h4>
+        <p style="align-items: center;">
+          14, Imp Bayard, Del. 33</br>
+          Email : proligazd@gmail.com</br>
+          Tel / WApp : (509)4423-5955</br>
+        </p>
+      </div>
+    </div>
+    <!--End Invoice Mid-->
+  
+    <div id="bot">
+  
+      <div id="table">
+        <table>
+          <tr>
+            <td style="float: inherit;">{{ courant.cur_meter }}</td>
+            <td style="margin-left: 3px;"> >></td>
+            <td id="metapr"></td>
+          </tr>
+          
+          <!-- <tr class="tabletitle">
+            <td class="item">
+              <h2>Avant</h2>
+            </td>
+            <td class="Hours">
+              <h2></h2>
+            </td>
+            <td class="Rate">
+              <h2>Apres</h2>
+            </td>
+          </tr> -->
+<!--                 
+          <tr class="service">
+            <td class="tableitem">
+              <p class="itemtext">{{ courant.cur_meter }}</p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext"></p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext" id="metapr"></p>
+            </td>
+          </tr> -->
+          <tr class="tabletitle">
+            <td class="item">
+              <h2>Nb Gal</h2>
+            </td>
+            <td class="Hours">
+              <h2>Unit.</h2>
+            </td>
+            <td class="Rate">
+              <h2>Total</h2>
+            </td>
+          </tr>
+          <tr class="service">
+            <td class="tableitem">
+              <p class="itemtext" id="nbr"></p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext" style="float: left;">$ {{param.prixgallon}}</p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext" id="montantt"></p>
+            </td>
+          </tr>
+          <tr class="tabletitle">
+            <td>Total</td>
+            <td class="Rate">
+            </td>
+            <td class="payment" id="alltot" style="float: left;">
+              <h2></h2>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--End Table-->
+  
+      <div id="legalcopy">
+        <p class="legal"><strong>Merci de votre fidelite !</strong>  
+             
+        </p>
+      </div>
+  
+    </div>
+    <!--End InvoiceBot-->
+  </div>
+  
+  <!--End Invoice-->  
+
+
+  <div id="pos">
+    <div id="top">
+      <!-- style="background-image: url({% static 'topgaz/logogaz.png' %});" -->
+      <!-- <div class="logo"></div> -->
+      <!-- <img src="{% static 'topgaz/logogaz.png' %}" alt="" height="40"> -->
+
+      <div class="info">
+        <h2>PROLIGAZ</h2>
+        <h4>Gaz Propane</h4>
+      </div>
+      <!--End Info-->
+    </div>
+    <!--End InvoiceTop-->
+  
+    <div id="mid">
+      <div class="info">
+        <h4>Reçu de Vente</h4>
+        <h6> No: {{ fiche.id }}</h6> 
+        <p style="align-items: center;">
+          14, Imp Bayard, Del. 33</br>
+          Email : proligazd@gmail.com</br>
+          Tel / WApp : (509)4423-5955</br>
+        </p>
+      </div>
+    </div>
+    <!--End Invoice Mid-->
+  
+    <div id="bot">
+  
+      <div id="table">
+        <table>
+          <tr>
+            <td style="float: inherit;">{{ fiche.inmeter }}</td>
+            <td style="margin-left: 3px;"> >></td>
+            <td id="metapr">{{ fiche.outmeter }}</td>
+          </tr>
+          
+          <!-- <tr class="tabletitle">
+            <td class="item">
+              <h2>Avant</h2>
+            </td>
+            <td class="Hours">
+              <h2></h2>
+            </td>
+            <td class="Rate">
+              <h2>Apres</h2>
+            </td>
+          </tr> -->
+<!--                 
+          <tr class="service">
+            <td class="tableitem">
+              <p class="itemtext">{{ courant.cur_meter }}</p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext"></p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext" id="metapr"></p>
+            </td>
+          </tr> -->
+          <tr class="tabletitle">
+            <td class="item">
+              <h2>Nb Gal</h2>
+            </td>
+            <td class="Hours">
+              <h2>Unit.</h2>
+            </td>
+            <td class="Rate">
+              <h2>Total</h2>
+            </td>
+          </tr>
+          <tr class="service">
+            <td class="tableitem">
+              <p class="itemtext" id="nbr"> {{ fiche.nbgal }} </p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext" style="float: left;">$ {{ fiche.pgal }}</p>
+            </td>
+            <td class="tableitem">
+              <p class="itemtext" id="montantt">{{ fiche.totalv }}</p>
+            </td>
+          </tr>
+          <tr class="tabletitle">
+            <td>Total</td>
+            <td class="Rate">
+            </td>
+            <td class="payment" id="alltot" style="float: left;">
+              <h2>$ {{ fiche.totalv }}</h2>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--End Table-->
+  
+      <div id="legalcopy">
+        <p class="legal"><strong>Merci de votre fidelite !</strong>  
+             
+        </p>
+      </div>
+  
+    </div>
+    <!--End InvoiceBot-->
+  </div>
+  <!--End Invoice-->  

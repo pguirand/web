@@ -1,0 +1,190 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/top1.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+
+{% block title %}Caisse{% endblock %}
+
+{% block body %}
+{% load humanize %}
+<div class="hidden"><div id="lbg">{{ last.gd_close }}</div><div id="lbu">{{ last.us_close }}</div></div>
+
+<form action="" id='myform' method="POST">
+    {% csrf_token %}
+<div class="container-sm divstart">
+    <div class="fw-bold h5 text-center">Ouverture Caisse</div>
+    <!-- <div class="row fw-bold h6 justify-content-center">Infos Compteur</div> -->
+    <div class="row fw-bold text-center">
+        <div class="col-sm-3 newcol" id=""> Compteur</div>
+        <div class="col-sm-2 newcol" id="contmeter"> {{ now_meter }} </div>
+        <div class="col-sm-2 newcol" id=""> - </div>
+
+        <div class="col-sm-3 newcol">
+            <button id="butmod" class="btn-primary">Changer ?</button>
+        </div>
+        <div class="col-sm-auto newcol" id="modinput">{{ form.meter_av }} <button id="butok">OK</button></div>
+    </div>
+    <div class="row fw-bold text-center" id="cash1">
+        <div class="col-sm-3" id=""></div>
+        <div class="col-sm-2">$ HT </div>
+        <div class="col-sm-2">USD</div>
+    </div>
+    <div class="row fw-bold text-center">
+        <div class="col-sm-3 newcol" id=""> Dernier</div>
+        <div class="col-sm-2 newcol before" id=""> {{ last.gd_close|floatformat:1|intcomma }} </div>
+        <div class="col-sm-2 newcol before" id=""> {{ last.us_close|floatformat:1|intcomma }} </div>
+        <div class="col-sm-3 newcol">
+            <button id="chcash" class="btn-primary">
+                Cash?</button></div>
+    </div>
+ 
+    <div class="row fw-bold text-center newcash" id="cash2">
+        <div class="col-sm-3 newcol" id="">Nouveau</div>
+        <div class="col-sm-2 newcol">{{ form.gdes_ouvert }} <div id="l1"></div> </div>
+        <div class="col-sm-2 newcol">{{ form.us_ouvert }}</div>
+        <div class="col-sm-3 newcol"><button id="okc">OK</button></div>
+    </div>
+    <div class="row fw-bold text-center" id="cash3">
+        <div class="col-sm-3 newcol" id="">Nouveau</div>
+        <div class="col-sm-2 newcol after" id="newg"></div>
+        <div class="col-sm-2 newcol after" id="newu"></div>
+        <div class="col-sm-3 newcol"></div>
+    </div>
+    <div class="row fw-bold justify-content-center">
+        <div class="col-sm-2"><button type="submit" id="opennow" name="opennow" class="btn-primary">Ouverture</button></div>
+        <div id="ok1">0</div><div id="ok2">0</div>
+    </div>
+    {% if message %}
+    <div class="fw-bold h6 alert alert-danger text-center">{{ message }}</div>
+    {% endif %}
+</div>
+</form>
+
+<div class="container-sm table-responsive">
+    <table class="table table-sm table-striped caption-top table-responsive-sm">
+        <caption class="fw-bold text-center">Derniers Rapports</caption>
+        <thead class="table-light">
+            <tr class="text-center">
+                <th colspan="4">Compteurs & Ventes</th>
+                <th colspan="2">CASH Start</th>
+                <th colspan="2">CASH Fin</th>
+                <th colspan="3">Ecarts - Etat</th>
+            </tr>
+            <tr class="text-center">
+                <th>No</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Gal.</th>
+                <th>$ HT</th>
+                <th>USD</th> 
+                <th>$ HT</th>
+                <th>USD</th> 
+                <th>$ HT</th>
+                <th>USD</th>
+                <th>Et. </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td class=""><a href="{% url 'topgaz:viewcaisse' result.id %}">{{ result.id }}</a></td>
+                <td>{{ result.av_meter }}</td>
+                <td class="text-center">{% if result.etat_caisse == "OUVERT" %} - {% else %} {{ result.ap_meter }}{% endif %}</td>
+                <td class="">{{ result.tot_gal }}</td> 
+                <td>{{ result.gd_open | floatformat:1 | intcomma }}</td>
+                <td>{{result.us_open | floatformat:1 | intcomma }}</td>
+                <td class="text-center"> {% if result.etat_caisse == "OUVERT" %} - {% else %} {{ result.gd_close | floatformat:1 | intcomma }} {% endif %} </td>
+                <td class="text-center"> {% if result.etat_caisse == "OUVERT" %} - {% else %} {{result.us_close | floatformat:1 | intcomma }} {% endif %} </td>
+                <td class="{% if result.ecart_gd < 0 %} text-danger {% elif result.ecart_gd == 0 %} text-success {% endif %}"> {% if result.etat_caisse == "OUVERT" %} - {% else %} {{ result.ecart_gd | floatformat:1 | intcomma }} {% endif %} </td>
+                <td class="{% if result.ecart_us < 0 %} text-danger {% elif result.ecart_us == 0 %} text-success {% endif %}"> {% if result.etat_caisse == "OUVERT" %} - {% else %} {{result.ecart_us | floatformat:1 | intcomma }} {% endif %} </td>
+                <td class="fw-bold"> {% if result.etat_caisse == "OUVERT" %} <div class="text-success">O</div>  {% else %}  <div class="text-danger">F</div> {% endif %} </td>       
+             </tr>
+             {% empty %}
+            <tr>
+                <td>No Results</td>
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>
+</div>
+ 
+
+{% endblock %}
+
+<div id="main">
+    <div id="right">
+        <div class="fw-bold h5 text-center">Liste Rapports Caisse </div>  
+        <div class="">
+            
+                <!-- {{ form.as_ul }} -->
+                <table class="resume">
+                    <!-- <tr>   
+                        <th>Compteur Actuel</th>
+                        <td class="actmeter"><div id="contmeter" class="nowmeter">{{ now_meter }}</div></td>
+                            <td class="modifier"><div><button id="butmod">Modifier</button></div></td> 
+                            <td id="modinput"> {{ form.meter_av }} <button id="butok">OK</button></td>
+                    </tr> -->
+                 
+                </table>
+                <!-- <table class="resume">
+                    <tr>
+                        <th>$HT</th><th>{{ form.gdes_ouvert }}</th>
+                        <th>USD</th><th>{{ form.us_ouvert }}</th>
+                        <th>Prix</th><td class="nowmeter"> {{ param.prixgallon }} </td>
+                    </tr>
+                   </table> -->
+                <!-- <div class="cash"><input type="submit" class="btn-primary" value="Ouverture" name="openmod"></div> -->
+           
+        </div>
+            <table class="ltable">
+            <tr class="theader3">
+                <th></th>
+                <th></th>
+                <th colspan="2">CASH</th>
+                <th></th>
+            </tr>
+            
+            <tr class="theader">
+                <th>No</th><th>Start</th><th>$ HT</th>
+                <th>USD</th><th>Tot Gal</th>
+            </tr>
+            {% for result in results %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}
+                        alist
+                        {% else %}
+                        blist
+                        {% endif %}">
+                <td>{{ result.id }}</td>
+                <td>{{ result.av_meter }}</td>
+                <td>{{ result.gd_open }}</td>
+                <td>{{result.us_open}}</td>
+                <td>{{ result.tot_gal }}</td>          
+             </tr>
+             {% empty %}
+            <tr>
+                <td>No Results</td>
+            </tr>
+             {% endfor %}
+
+                        </table>
+                <!-- {{ result.id }} - Start : {{ result.av_meter }} - $ {{ result.gd_open }} HT - {{result.us_open}} USD : 
+                 Vente: {{ result.tot_gal }} Gallons  -->
+
+            <p></p>
+        
+         <div class="cash"><a href="{% url 'topgaz:index' %}">Retour a Topgaz</a></div>
+
+    </div>
+    
+
+</div>

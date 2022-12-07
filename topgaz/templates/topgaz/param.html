@@ -1,0 +1,113 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block title %}Parametrage{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div class="container-sm">
+
+<div class="row justify-content-center fw-bold h5">Parametres</div>
+
+<form action="" method="POST">
+    {% csrf_token %}
+<div class="row">
+    
+    <div class="col-sm-2 newcol fw-bold">Taux</div>
+    <div class="col-sm-2 newcol fw-bold">{{ last.tauxdujour }}</div>
+    <div class="col-sm-auto newcol"><button class="optbut btn btn-primary option" id="chg1" data-option="taux">Modifier</button></div>
+    <div class="col-sm cont newcol hidden" id="taux"> 
+        <div>
+            {{ form.taux }} 
+    <input type="submit" id="dtaux" name="subtaux" class="sauveg btn btn-primary" value="Save">
+    <button id="anul1" class="btn btn-secondary">Annuler</button>
+
+        </div>
+    </div>
+   
+</div>
+</form>
+<form action="" method="POST">
+    {% csrf_token %}
+
+<div class="row">
+    <div class="col-sm-2 newcol fw-bold">Prix Gal</div>
+    <div class="col-sm-2 newcol fw-bold"> {{ last.prixgallon }}</div>
+    <div class="col-sm-auto newcol"><button class="optbut btn btn-primary" id="chg2" data-option="price">Modifier</button></div>
+    <div class="col-sm cont newcol hidden" id="dprice"> 
+        <div>
+            {{ form.prix }} 
+            <input type="submit" name="subprice" id="dprice" class="sauveg btn btn-primary" value="Save">
+            <button id="anul2" class="btn btn-secondary">Annuler</button>
+        </div>
+    </div>
+</div>
+</form>
+
+{% if msg  %}
+<div class="alert alert-success text-center"> {{ msg }} </div>
+{% endif %}
+
+<div class="container-sm table-responsive">
+    <table class="table table-sm table-striped caption-top table-responsive-sm">
+        <caption class="fw-bold text-center">Dernieres Mises a jour</caption>
+        <thead class="table-light">
+
+            <tr class="text-center">
+                <th>No</th>
+                <th>Taux</th>
+                <th>Prix</th>
+                <th>Date & Heure</th>
+                <th>Depuis</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for option in tous %}
+            <tr>
+                <td class="">{{ forloop.revcounter }}</a></td>
+                <td class=" {% if forloop.first %} {{ prop1 }} {% endif %} ">{{ option.tauxdujour }}</td>
+                <td class=" {% if forloop.first %} {{ prop2 }} {% endif %} ">{{ option.prixgallon }}</td> 
+                <td>{{ option.time|date:"M d, Y - H:i" }}</td>
+                <td>{{ option.time2 | naturaltime }}</td>
+               
+             </tr>
+             {% empty %}
+            <tr>
+                <td>Pas de Parametres</td>
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+<br>
+<div class="container-sm">
+
+<div class="row">
+
+    <div class="col-sm text-center">
+<a href="{% url 'topgaz:caisse' %}"><button class="btn btn-secondary">Retour Caisse</button></a>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

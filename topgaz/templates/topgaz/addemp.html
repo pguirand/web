@@ -1,0 +1,160 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block title %}Employe Enregistrement {% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<ul class="nav nav-pills navemp" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-new" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Enregistrer</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-list" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Lister</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
+
+        <div class="fw-bold h6 text-center">Enregistrement Employe</div> 
+
+        <div class="container-sm acon">
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row justify-content-start">
+        <div class="col-sm-3 shortfield">
+            {{ form.prenom.label }}{{ form.prenom }}
+          </div>
+        <div class="col-sm-3 shortfield">
+             {{ form.nom.label }} {{ form.nom }}
+        </div>
+        <div class="col-sm-3 longfield">
+            {{ form.email.label }}
+            {{ form.email }}
+        </div>
+        <div class="col-sm-2 salfield">
+            {{ form.salaire.label }}{{ form.salaire }}
+        </div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-sm-3">
+            {{ form.group.label }}
+            {{ form.group }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.sex.label }}
+            {{ form.sex }}
+        </div>
+        <div class="col-sm">
+            <label class="" for="chposte">Poste:</label>
+            <select name="lpos" id="chposte" class="form-select form-select-sm">
+                <option value="" selected disabled>--Choisir Poste--</option>
+                {% for poste in lsposte %}
+                <option value="{{ poste.id }}">
+                    {{ poste.nom_poste }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+<!-- 
+        <div class="col-sm newcol">
+            <label class="" for="chposte">Poste:</label>
+            <select name="lus" id="chus" class="form-select form-select-sm">
+                <option value="" selected disabled>--Choisir Utilisateur--</option>
+                {% for util in lsuser %}
+                <option value="{{ util.id }}">
+                    {{ util.first_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div> -->
+    </div>
+       
+    <div class="row justify-content-center">
+        <div class="col-sm-auto">
+            <button type="submit" name="saveemp" class="btn btn-primary">Enregistrer</button>
+        </div>
+    </div>
+    </form>
+        </div>
+
+        <div class="container-sm">
+            <div class="row h-25 justify-content-center">
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+            {% if message %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="pills-list" role="tabpanel" aria-labelledby="pills-profile-tab">
+        
+        <div class="container-sm table-responsive">
+            <table class="table table-sm table-striped caption-top table-responsive-sm">
+                <caption class="fw-bold text-center">Liste des Employes</caption>
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th>Prenom</th>
+                        <th>Nom</th>
+                        <th>Sexe</th>
+                        <th>Poste</th>
+                        <th>Sal-$HT</th>
+                        <th>User</th>
+                        <th>Groupe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employe in liste %}
+                    <tr>
+                        <td> {{ employe.prenom }} </td>
+                        <td> {{ employe.nom }} </td>
+                        <td> {{ employe.sexe }} </td>
+                        <td>
+                                <!-- subliste if many objects in poste
+                                {% for poste in employe.poste.all %} 
+                                <li> {{ poste.nom_poste }}
+                                    {% endfor %}  -->
+                                <!-- {% if not forloop.last %}</br> {% endif %} -->
+                                
+                            {{employe.poste.nom_poste}}
+                        </td>
+                        <td> {{ employe.salaire|intcomma }} </td>
+                        <td> {{ employe.utilisateur }} </td>
+                        <td> {{ employe.groupe }} </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    </div>
+
+      
+</div>
+
+
+{% endblock %}

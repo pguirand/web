@@ -1,0 +1,74 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block title %}Ressources Humaines{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div class="container-sm">
+    <form action="" method="POST">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-4">
+            <div>
+            <div class="row justify-content-center fw-bold h5">
+                Ajouter Poste
+            </div>
+            <div class="row justify-content-center">
+                {{ form }}
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-auto">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+                {{ form.errors }}
+                {% if message %}
+                <div class="alert alert-success" role="alert"> 
+                  {{ message }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+     
+    </div>
+        <div class="col-sm-auto newcol">
+            <div></div>
+        </div>
+        <div class="col-sm">
+            <div>
+                <table class="table table-hover table-sm table-striped caption-top table-responsive-sm table-primary">
+                    <caption class="fw-bold text-center">Liste des Postes</caption>
+                    <thead class="table-light">
+                    <tr class="text-center">
+                        <th class="col-sm-8" scope="col">Poste</th>
+                        <th class="col-sm-3" scope="col">Grille ($ HT)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for poste in liste %}
+                        <tr>
+                        <td> {{ poste.nom_poste }} </td>
+                        <td class="text-end"> {{ poste.grille|floatformat:2|intcomma}} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

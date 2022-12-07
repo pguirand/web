@@ -1,0 +1,53 @@
+{% extends "topgaz/layout.html" %}
+
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block title %}Compagnies{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div class="container-sm">
+    {% if message %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
+    <div class="row fw-bold h5 justify-content-center">
+        Enregistrer Compagnie
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+        {{ form }}
+        </div>
+        <div class="col-sm text-center">
+            Liste des Compagnies
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-auto">
+        <input type="submit" value="submit" class="btn btn-primary">
+        </div>
+    </div>
+    </form>
+</div>
+
+
+{% endblock %}

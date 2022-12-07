@@ -1,0 +1,871 @@
+
+@media screen and (min-width: 575px) {
+    body { padding-top: 85px; }
+}
+@media screen and (max-width: 575px) {
+    body { padding-top: 250px; }
+}
+[class*="newcon"] {
+    padding: 1px;
+    /* background-color: rgb(236, 198, 154); */
+    border: 1px solid rgb(13, 84, 102);
+    color: white;
+    text-align: center;
+}
+[class*="newcol"] {
+    background-color: turquoise;
+    border: 1px solid whitesmoke;
+    color: white;
+    /* text-align: center; */
+}
+.acol {
+    /* background-color: turquoise;
+    color: white; */
+    border: 1px solid whitesmoke;
+    padding: 3px;
+    margin: 5px;
+    /* text-align: center; */
+}
+.acon {
+    background-color: rgb(240, 217, 191);
+    /* border: 1px solid rgb(167, 167, 132) */
+}
+
+.divpad3 {
+    padding-left: 10px;
+}
+
+}
+
+/*
+body {
+    background-color:mintcream;
+    padding-top: 100px;
+} */
+
+.navtete {
+    background-color: mintcream;
+}
+
+img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+#head {
+    background-color: pink;
+    height: 60px;
+    width: 700px;
+    margin: 5px auto;
+    padding: 5px;
+}
+#main {
+    /* background-color: yellow; */
+    height: 500px;
+    width: 700px;
+    margin: 5px auto;
+    padding: 5px;
+    position: relative;
+    /* padding-top: 120px; */
+
+
+}
+#left {
+    width: 20%;
+    height: 90%;
+    margin: 5px auto;
+    border: 1px solid blue;
+    float:left;
+    background-color: wheat;
+
+}
+#right {
+    width: 90%;
+    /* height: 90%; */
+    /* float: right; */
+    margin: 5px auto;
+    border: 1px solid maroon;
+    background-color:wheat;
+
+}
+
+#goud {
+    width: 49%;
+    float: left;
+}
+
+#dola {
+    width: 50%;
+    float: right;
+}
+#space {
+    /* height: 100px; */
+    margin: 5px;
+    /* border:none */
+}
+.cash {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding-top: 0px;
+}
+.livetot {
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+}
+.monnaie {
+    border: none;
+    margin: 0px;
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: bold;
+    /* display: flexbox; */
+}
+#us {
+    float:inline-end
+}
+.caisse {
+    font-size: 16px;
+    font-family: monospace;
+    font-weight: bold;
+    border:none;
+
+}
+#caisse {
+    font-size: 18px;
+    font-family: monospace;
+    font-weight: bold;
+    width: 25%;
+    float: left;
+    border: none;
+
+}
+#time {
+    float: right;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    width: 50%;
+    border: none;
+}
+.operation {
+    text-align: center;
+    font-size: 16px;
+    border: none;
+}
+
+.input {
+    border: solid 1px red;
+    width: 120px;
+    float: left;
+
+}
+.longfield input {
+    width: 180px;
+}
+
+.shortfield input {
+    width: 150px;
+}
+
+.salfield {
+    width: 120px;
+}
+
+#contenu {
+    height: 280px;
+    border: none;
+}
+.operation {
+    display: none;
+}
+.sinput {
+    width: 80px;
+
+}
+.tinput {
+    width: 70px;
+    float: left;
+
+}
+.tcash {
+display: inline-block;
+height: 50%;
+font-family:monospace;
+font-size: 16px;
+font-weight: bold;
+padding-left: 5px;
+border: none;
+}
+
+.comment {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+.contcomment {
+    /* float: right; */
+    display: inline-block;
+    width: 80%;
+}
+.galinput {
+    width: 70px;
+    text-align: center;
+}
+
+.meter {
+    width: 25%;
+    border: solid 1px black;
+    float: left;
+    font-size: 16px;
+}
+
+.labelmeter {
+    width: 20%;
+    border: solid 1px black;
+    float:right;
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.lbprice {
+    width: 21%;
+    float: right;
+    font-size: 16px;
+
+}
+.price {
+    width: 10%;
+    float: right;
+    background-color: green;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+.boxed {
+    width: 20%;
+
+}
+.lim {
+    width: 10%;
+    float: left;
+    font-size: 16px;
+}
+
+.metlim {
+    width: 10%;
+    float: left;
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.modifier {
+    width: 15%;
+}
+.actmeter {
+    background-color:green;
+    width: 20%;
+}
+.nowmeter {
+    /* width: 50%; */
+    /* float: left; */
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    border: none;
+    padding-top: 0px;
+}
+
+.space2 {
+    height: 18px;
+    border: none;
+    /* border: solid 1px red; */
+}
+.galprice {
+    float: left;
+
+}
+
+.vendre {
+    float: none;
+    display: flexbox;
+    border: none;
+}
+
+.valider {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+/*
+  input[type=button], input[type=submit], input[type=reset] {
+    background-color: rgb(245, 192, 94);
+    border: none;
+    color: green;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  } */
+
+  .newsubmit {
+    /* background-color: #ff9d64; */
+    width: 90px;
+    background-color: rgb(245, 192, 94);
+    border: none;
+    /* color: white; */
+    color: green;
+    padding: 2px 8px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 1px;
+  }
+
+  .radio {
+    width: 50%;
+    border: solid 1px black;
+    float: left;
+}
+.choix {
+    width: 38%;
+    border: solid 1px black;
+    float: left;
+}
+.bradio {
+    width: 50%;
+    border: solid 1px black;
+    float: left;
+    border: none;
+}
+.header2 {
+    width: 50%;
+    float: left;
+    text-align: center;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.hidden {
+    display: none;
+    width: 80px;
+}
+
+.alist {
+    color: maroon;
+    background-color: rgb(208, 240, 208);
+    /* border: solid 1px black; */
+}
+.blist {
+    color: green;
+    background-color: rgb(238, 192, 200);
+    /* border: solid 1px black; */
+}
+.ltable {
+    width: 90%;
+    border:purple 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
+    font-size: 16px;
+}
+.resume {
+    width: 90%;
+    border: blue 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
+    font-size: 18px;
+}
+
+table.resume td {
+    border: solid 1px black;
+}
+
+table.resume th {
+    background-color: rgb(223, 223, 153);
+}
+.actif {
+    text-align: left;
+    /* border-right: 1px green solid; */
+    color: green;
+}
+.passif {
+    text-align: right;
+    /* border: none; */
+    color: red;
+}
+.listrans {
+    width: 100%;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+
+}
+.theader {
+    border: solid 1px black;
+    background-color: whitesmoke;
+}
+
+th {
+    border: solid 1px black;
+    border-style: dotted;
+}
+
+.titre {
+    text-align: left;
+    font-size: 16px;
+    color: green;
+    background-color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.transac {
+    height: 75px;
+    width: 75%;
+    /* float: right; */
+    /* display: inline-block; */
+    position: relative;
+    float: left;
+}
+.subus {
+    display: inline-block;
+    border: none;
+    padding-top: 10px;
+
+
+}
+
+
+.tlabel {
+    width: 100%;
+    height: 75px;
+    float: left;
+    position: absolute;
+
+
+}
+
+.tchoice {
+    display: inline-block;
+    height: 75px;
+    position: relative;
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: center;
+    /* display: table-cell;
+    vertical-align: middle;
+ */
+}
+.texinput {
+    float:left;
+    border: none;
+}
+.thebuttons {
+    /* height: 210px; */
+    width: 20%;
+    position: relative;
+    /* display: inline-block; */
+    position: relative;
+    float: left;
+    border: none;
+
+}
+
+div.thebuttons button {
+    /* float: left; */
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+}
+.pied {
+    /* padding-top: 50px; */
+    position: relative;
+    margin-top: 70px;
+    text-align: center;
+}
+.especel {
+    height: 20px;
+    width: 30px;
+    font-size: 12px;
+    /* display: inline-block; */
+    float: left;
+    padding-top: 2px;
+    border: none;
+
+}
+.especec {
+    font-size: 15px;
+    width: 20px;
+    height: 20px;
+    /* display: inline-block; */
+    float: left;
+
+}
+.cont_esp {
+    height: 20px;
+    float: left;
+}
+
+#temp_value {
+    width: 70px;
+
+}
+
+.text1 {
+    margin:0;
+    text-indent: 2rem;
+    text-align: justify;
+}
+.pinput {
+    width: 100px;
+}
+.param1 {
+    width: 70px;
+}
+
+.huser {
+    font-size: 12px;
+    font-weight: bold;
+}
+.hsecteur {
+    font-size: 12px;
+    font-weight: bold;
+}
+.divflow {
+    max-height: 220px;
+    overflow: auto;
+}
+.table-responsive {
+    max-height: 220px;
+}
+
+.tdclient {
+    margin: auto;
+    max-width: 90px;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    /* text-overflow: ellipsis; */
+    
+}
+.tableclient {
+    max-height: 180px;
+    overflow: auto;
+}
+
+.table-affich {
+    max-height: 360px;
+    width: 600px;
+    overflow-x: auto;
+}
+.tablelg {
+    width: 580px;
+}
+
+tr:hover{
+    background-color:beige;
+}
+
+.labelemp {
+    display: inline-block;
+    width: 50px;
+    text-align: right;
+}
+.navemp {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    margin-left: 80px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+.newnav {
+    height: 70px; /* Whatever you want. */
+}
+
+/* label {
+    font-size: 10px;
+} */
+
+.divstart {
+    margin-left: 20px;
+}
+
+/* #############  Receipt Invoice  ################ */
+
+#pos{
+    box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+    padding:2mm;
+    margin: 0 auto;
+    width: 58mm;
+    background: #FFF;
+}
+
+::selection {background: #f31544; color: #FFF;}
+::moz-selection {background: #f31544; color: #FFF;}
+h1{
+  font-size: 1.5em;
+  color: #222;
+  text-align: center;
+}
+h2{font-size: .9em;}
+h3{
+  font-size: 1.2em;
+  font-weight: 300;
+  line-height: 2em;
+}
+p{
+  font-size: .7em;
+  color: #666;
+  line-height: 1.2em;
+}
+
+#top, #mid,#bot{ /* Targets all id with 'col-' */
+  border-bottom: 1px solid #EEE;
+}
+#top {
+    text-align: center;
+}
+
+#top{min-height: 10px;}
+#mid{min-height: 40px;}
+#bot{ min-height: 10px;}
+
+.legal {
+    padding-top: 10px;
+}
+
+#top .logo{
+    /* float: left; */
+	height: 60px;
+	width: 80px;
+	background-color: darkblue;
+    /* background: url('/static/topgaz/logogaz.png') no-repeat; */
+	background-size: 80px 60px;
+    background-position: center;
+    text-align: center;
+}
+/* .clientlogo{
+    float: left;
+	height: 60px;
+	width: 60px;
+	background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+	background-size: 60px 60px;
+    border-radius: 50px;
+} */
+.info{
+  display: block;
+  /* //float:left; */
+  /* margin-left: 0; */
+  text-align: center;
+}
+.info > p {
+    text-align: center;
+    align-content: center;
+}
+.info > h2 {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    font-weight: bolder;
+    font-style: italic;
+}
+.info > h4 {
+    font-size: 10px;
+    font-family: monospace;
+    /* font-style: italic; */
+}
+#top > img {
+    opacity: 1;
+
+}
+/* .title{
+  float: right;
+} */
+/* .title p{text-align: right;} */
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+td{
+  /* text-align: left; */
+  padding: 5px 10px 5px 10px;
+  border: 1px solid #EEE;
+}
+tr{
+    padding: 5px 0px 5px 0px;
+    border: 1px solid #EEE;
+    /* text-align: center; */
+  }
+
+.tabletitle{
+  /* //padding: 5px; */
+  font-size: .5em;
+  background: #EEE;
+}
+.service{border-bottom: 1px solid #EEE; text-align: left;}
+.item{width: 20mm; color:blue;}
+/* .Hours{width: 30mm;} */
+/* .Rate{width: 20mm;}  */
+
+.itemtext{font-size: .5em;}
+
+#legalcopy{
+  margin-top: 5mm;
+}
+
+.center {
+    text-align: center;
+}
+/* ############# END RECEIPT #################### */
+@page {
+    /* margin: 25mm 25mm 25mm 25mm; */
+
+    size: 60mm;
+    /* height: 600mm; */
+    margin-top: 0px;
+}
+
+
+
+@media print {
+     * {
+        margin: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        /* margin: 25mm 25mm 25mm 25mm; */
+        visibility: hidden;
+        width: 58mm;
+        /* size: 58mm; */
+
+    }
+
+    #pos, #pos * {
+        margin-top: 0px;
+        padding-left: 0px;
+        padding-top: 0px;
+        visibility: visible;
+        width: 100%;
+        text-align:center;
+
+
+        /* padding:2mm; */
+        /* margin: 0 auto; */
+    }
+
+
+
+}
+.mtags {
+    width: 80px;
+}
+
+.divsale {
+    padding-left: 3px;
+}
+.divtop {
+    padding-top: 10px;
+}
+
+.divpay {
+    /* padding-left: 3px; */
+    padding: 0px 3px 0px 3px;
+    margin-right: 0px;
+}
+
+.divclose {
+   margin-top: 10px;
+}
+
+.smallg {
+    font-size: 15px;
+    font-weight: bold;
+    align-content: center;
+    color: green;
+    padding: 5px;
+}
+
+.smalln {
+    font-size: 15px;
+    font-weight: bold;
+    align-content: center;
+    /* color: green; */
+    padding: 5px;
+}
+
+.cashc {
+    font-size: 13px;
+    font-weight: bold;
+    color: red;
+    align-content: center;
+    /* color: green; */
+    padding: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    
+}
+.smtext {
+    width: 65px;
+    font-size: 15px;
+    font-weight: bold;  
+}
+
+.smclient {
+    width: 220px;
+    font-size: 15px;
+    font-weight: bold;  
+}
+
+.smcol {
+    width: 65px;
+
+
+}

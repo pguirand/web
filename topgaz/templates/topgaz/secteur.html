@@ -1,0 +1,98 @@
+{% extends 'topgaz/layout.html' %}
+
+{% load static %}
+
+{% block tscripts %}
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block css  %}
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block title %} Secteurs {% endblock %}
+{% block body %}
+
+{% load humanize %}
+
+<div class="container-sm">
+    <form action="" method="POST">
+        {% csrf_token %}
+    <div class="row justify-content-center fw-bold h5 text-primary">Gestion Secteurs</div>
+    <div class="row justify-content-center fw-bold">Ajout Secteur</div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label for="secname">Nom Secteur :</label>
+            <input type="text" class="form-control" name="secname" id="secname" placeholder="Nom Secteur">
+        </div>
+        <div class="col-sm">
+            <label for="secdes">Description : </label>
+            <input type="text" name="secdes" id="secdes" class="form-control" placeholder="Description">
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-sm">
+            <input type="submit" name="newsec" id="newsec" class="btn btn-primary" value="Ajouter">
+        </div>
+    </div>
+    </form>
+</div>
+{% if msg %}
+<div class="alert alert-success text-center"> {{ msg }} </div>
+{% endif %}
+{% if sup %}
+<div class="alert alert-success text-center"> {{ sup }} </div>
+{% endif %}
+<div class="container-sm">
+    <div class="container-sm table-responsive-sm tableclient">
+        <table class="table table-sm table-striped caption-top table-responsive-sm">
+            <caption class="fw-bold text-center">Liste Clients </caption>
+            <thead class="table-light">
+                <tr class="text-center">
+                    <td>No</td>
+                    <td>Id</td>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for secteur in secteurs %}
+                <tr>
+                    <!-- <td>{{ forloop.revcounter }}</td> -->
+                    <td>{{ forloop.counter }}</td>
+                    <td> {{ secteur.id }} </td>
+                    <td class="tdclient"> {{ secteur.nom_secteur }} </td> 
+                    <td class="tdclient"> {{ secteur.description }} </td> 
+                    <td>
+                        <img class="d-line-block align-top" src="{% static 'topgaz/edit5.png' %}" alt="title" height="20" title="Modifier" >
+                        
+                    </td>     
+                    <td>
+                    <a href="{% url 'topgaz:delsecteur' secteur.id %}" class="confirmation">
+                        <img class="d-line-block align-top" src="{% static 'topgaz/del0.jpeg' %}" alt="title" height="20" title="Supprimer" >
+                        </a>
+                        <!-- choix entre del3.png ou del0.jpeg -->
+                    </td>
+                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center"><li>Aucun Secteur</li></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+<div class="row text-center">
+    <div class="col-sm">
+        <a href="{% url 'topgaz:clients' %}">
+            <button class="btn btn-dark">Retour a Clients</button>
+        </a>
+    </div>
+</div> 
+</div>
+
+
+{% endblock %}
+

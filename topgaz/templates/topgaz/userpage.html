@@ -1,0 +1,34 @@
+{% extends "topgaz/layout.html" %}
+{% load static %}
+
+
+{% block tscripts %}
+<script src="{% static 'topgaz/opera.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+{% endblock %}
+
+{% block title %}Page Utilisateur{% endblock %}
+
+{% block body %}
+{% load humanize %}
+<div class="container">
+    <div class="row d-flex justify-content-start huser">
+        Bienvenue, {{request.user.first_name }}
+    </div>
+</div>
+
+<h1 class="cash">Page Utilisateur</h1>
+
+<ul>
+    <li>Username : {{ request.user.username }}</li>
+    <li>Email : {{ request.user.email }}</li>
+</ul>
+
+{% if msg %}
+{{ msg }}
+{% endif %}
+
+{% endblock %}

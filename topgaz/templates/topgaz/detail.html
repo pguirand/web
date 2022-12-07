@@ -1,0 +1,319 @@
+{% extends 'topgaz/layout.html' %}
+
+{% load static %}
+
+{% block tscripts %}
+
+<script src="{% static 'topgaz/opera.js' %}"></script>
+
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'topgaz/style1.css' %}">
+
+{% endblock %}
+
+{% block title %} Interface Caisse {% endblock %}
+
+{% block body %}
+{% load humanize %}
+
+<div class="cash">Caisse  {{ transform.temp }} <div class="tempval">{{ value }}</div>  </div>
+<div style="clear: both;"></div>
+
+<div id="caisse">Session # {{ courant.id }}</div>
+<div id="time">Ouverture le : {{ courant.heure_ouv }} </div>
+<div style="clear: both;"></div>
+
+<div id="open">
+    <div class="header2">Compteur</div><div class="header2">CASH</div>
+    <div id="compteur" class="monnaie">Initial: {{ courant.av_meter }}  </div>
+    <div id="compteur" class="monnaie"> Actuel : {{ courant.cur_meter }}  </div>
+    <div id="gd" class="monnaie">$ {{ courant.gd_open | floatformat:2 | intcomma }} HT</div>
+    <div id="us" class="monnaie">{{ courant.us_open | floatformat:2 | intcomma }} USD</div>
+</div>
+
+<div style="clear: both;"></div>
+
+<div class="cash">
+    <button data-operation="vente" class='bop' id="sale">Ventes</button>
+    <button data-operation="transaction" class='bop'>Transactions</button>
+    <button data-operation="summary" class='bop'>Sommaire</button>
+    <button data-operation="depense" class='bop'>Depenses</button>
+</div>
+
+
+<div class="operation" id="summary">
+    <div class="cash">Sommaire</div>
+    <table class="resume">
+        <tr>
+            <th colspan="3">Compteur</th><th colspan="2">Ventes</th>
+            
+        </tr>
+        <tr>
+            <th>Debut</th>
+            <th>Actuel</th>
+            <th>Fin</th>
+            <th>Quantite</th>
+            <th>Montant</th>
+        </tr>
+        <tr>
+            <td>{{ courant.av_meter }}</td>
+            <td>{{ courant.cur_meter }}</td>
+            <td></td>
+            <td>{{ sum_gal | floatformat:1}} Gal</td>
+            <td>$ {{sum_vente | floatformat:2 | intcomma }} HT</td>
+        </tr>
+        </table>
+
+        <table class="resume">
+            <caption>CASH</caption>
+        <tr>
+            <th></th>
+            <th>$ HT</th>
+            <th>USD</th>
+        </tr>
+        <tr>
+            <th>Ouverture</th>
+            <td class="actif"> $ {{ courant.gd_open | floatformat:2 | intcomma }} HT</td>
+            <td class="actif">{{ courant.us_open | floatformat:2 | intcomma }} USD</td>
+        </tr>
+            <th>Ventes</th>
+            <td class="actif">$ {{sum_vente | floatformat:2 | intcomma }} HT</td>
+            <td></td>
+        <tr>
+            <th>Depenses</th>
+            <td class="passif"> - $ {{ sum_dep | floatformat:2 | intcomma }} HT</td>    
+            <td class="passif"> - {{ sum_depus | floatformat:2 | intcomma }} USD</td>
+        </tr>
+        <tr>
+            <th>Apports </th>
+            <td class="actif"> + $ {{ sum_app | floatformat:2 | intcomma }} HT</td>
+            <td class="actif">+ {{ sum_appus | floatformat:2 | intcomma }} USD</td>
+        </tr>
+        <tr>
+            <th>Achat US</th>
+            <td class="passif">- $ {{ sum_equiht | floatformat:2 | intcomma }} HT</td>
+            <td class="actif"> + {{ sum_us | floatformat:2 | intcomma}} USD</td>
+        </tr>
+        <tr>
+            <th>En Caisse</th>
+            <td class="livetot"> $ {{ live_ht | floatformat:2 | intcomma }} HT </td>
+            <td class="livetot">  {{ live_us | floatformat:2 | intcomma }} USD</td>
+            <!--     -->
+        </tr>
+    </table>
+    
+   
+
+</div>
+<div id="contenu">
+    <div id="vente" class="operation">
+    
+        <div class="cash">Ventes</div>  
+        <form action="" method="POST">
+            {% csrf_token %} 
+            {{ venteform.meterout }} {{ venteform.pgal }} {{ venteform.ptot }}
+        <table class="resume">
+            <tr>
+                <th>Avant</th><td class="" id="avantm">{{ courant.cur_meter }}</td>
+                <th>Apres</th><td class="" id="afterm"></td>
+                <th>Prix Gal</th><td id="prix"> {{param.prixgallon}} </td>
+                <th>Taux US</th><td> {{ param.tauxdujour }} </td>
+            </tr>
+        </table>
+        <table class="resume">
+            <tr>
+                <th colspan="2">Par Gal</th><th colspan="2">Montant</th>
+                <th>Total ($HT):</th>
+            </tr>
+            <tr>
+                <td>Nb Gal:</td><td>{{ venteform.qtgal }}</td>
+                <td>Montant:</td><td>{{ venteform.percash }}</td>
+                <td class="" id="buytot">{{ tot_price }}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    {% for choice in venteform.typev %}
+                    <div class="bradio">{{ choice.tag }}</div> 
+                    {% endfor %}
+
+                </td>
+            </tr>
+        </table>
+        <!-- <div> 
+            <div class="lim">Avant :</div> <div class="metlim" id="avantm">{{ courant.cur_meter }} </div>
+            <div class="lim">Apres : </div> <div class="metlim" id="afterm"> </div>
+            <div class="price" id="prix">58</div><div class="lbprice">Prix Gal ($ HT): </div>
+        </div>
+       
+
+        <div style="clear: both;"></div>
+        <div class="meter">Par Gallons</div>
+        <div class="meter">Par Montant</div>
+        <div class="labelmeter">Total ($ HT):</div>
+        <div style="clear: both;"></div>
+        <div class="meter"> Nb Gal : {{ venteform.qtgal }} </div>
+        <div class="meter">Montant : {{ venteform.percash }} </div>
+        
+        <div class="labelmeter" id="buytot"> {{ tot_price }} </div>
+
+        <div style="clear: both;"></div>
+        <div class="radio">
+            {% for choice in venteform.typev %}
+           <div class="bradio">{{ choice.tag }}</div> 
+            {% endfor %}
+           
+        </div>
+        <div style="clear: both;"></div> -->
+        <div class="vendre"><input type="submit" name="sale" value="Vendre"></div> 
+    </form>
+    <div style="clear: both;"></div>
+
+    <table class="ltable">
+        <tr>
+            <th>Sale</th><th colspan="2">Compteur</th><th colspan="3">Gallons et Montant</th>
+            <th colspan="4">Session</th>
+        </tr>
+        <tr>
+            <th>No</th><th>Debut</th><th>Fin</th><th>Unit</th>
+            <th>Qte</th><th>Montant</th><th>No</th>
+            <th>Statut</th><th>Vendus</th><th>Tot</th>
+        </tr>
+        {% for vente in liste %}
+        <tr class="{% if forloop.counter|divisibleby:2 %}
+                    alist
+                    {% else %}
+                    blist
+                    {% endif %}">
+            <td>{{vente.id }}</td>
+            <td>{{ vente.inmeter }}</td>
+            <td>{{ vente.outmeter }}</td>
+            <td>{{vente.pgal}}</td>
+            <td>{{ vente.nbgal }}</td>
+            <td>{{ vente.totalv }}</td>
+            <td>{{ vente.caisse.id }}</td>
+            <td>{{ vente.caisse.etat_caisse }}</td>
+            <td> {{ vente.caisse.tot_gal }} </td>   
+           
+        </tr>
+        {% empty %}
+        <tr><td>Pas de Ventes</td></tr>
+        {% endfor %}
+    </table>
+    GALLONS VENDUS POUR SESSION {{ courant.id }} est : {{ sum_gal }} Gal.
+
+    </div>  
+    
+    <div id="transaction" class="operation">
+        <div class="cash">Transactions</div> 
+       
+        <div id="wrapper">
+        <div class="thebuttons">
+        <!-- <button>Depenses</button><br> -->
+        {% for type in transform.trtype %}
+        <div class="tlabel">{{ type.choice_label }} </div>
+        <div class="tchoice"> {{ type.tag }} </div>
+        <!-- <div> {{ type.type_label }} </div> -->
+        {% endfor %}
+        </div>
+        
+
+        <div class="transac">
+            <form action="" method="POST">
+                {% csrf_token %}
+            <div class="texinput">{{ transform.tmontant_dep }} </div>
+            <div class="contcomment">{{ transform.tcomment_dep }}</div>
+            <div class="cont_esp">
+            {% for espece in transform.tespece %}
+            <div class="especel"> {{ espece.choice_label }} </div>
+            <div class="especec"> {{ espece.tag }} </div>
+            {% endfor %}
+            </div>
+            <div style="clear: both;"></div>
+            <input type="submit" name="but_dep" class="newsubmit" value="Effectuer Depense">
+            </form>
+        </div>
+
+        <div class="transac">
+            <form action="" method="POST">
+                {% csrf_token %}
+            <!-- {{ transform }} -->
+            <div class="texinput">{{ transform.tmontant_app }} </div>
+            <div class="contcomment">{{ transform.tcomment_app }}</div>
+            <div class="cont_esp">
+            {% for espece in transform.t2espece %}
+            <div class="especel"> {{ espece.choice_label }} </div>
+            <div class="especec"> {{ espece.tag }} </div>
+            {% endfor %}
+            </div>
+            <div style="clear: both;"></div>
+            <input type="submit" name="but_app" class="newsubmit" value="Effectuer Apport">
+            </form>
+        </div>
+
+        <div class="transac">
+            <form action="" method="POST">
+                {% csrf_token %}
+            <!-- {{ transform }} -->
+            <div class="texinput">{{ transform.tmontant_us }}  <div class="tcash">US</div></div>
+            <!-- <div class="texinput">{{ transform.tuschange }}</div> -->
+            <!-- <div class="contcomment">{{ transform.tcomment }}</div> -->
+            <div style="clear: both;"></div>
+
+            <div class="subus">
+                <input type="submit" name="but_ch" class="newsubmit" value="Achat US">
+
+            </div>
+            </form>
+
+        </div>
+        <div style="clear: both;"></div>
+        <div class="listrans">
+        <ul>
+            {% for transaction in list_trans %}
+            {% if transaction.type != "Change" %}
+            <li>{{ transaction.id }} - {{ transaction.type }} - 
+                {% if transaction.montant != 0.00 %}
+                $ {{ transaction.montant | floatformat:2 | intcomma }} HT |
+                {% endif %}
+                {% if transaction.montantus != 0.00 %}
+                {{ transaction.montantus | floatformat:2 | intcomma }} USD |
+                {% endif %}
+                Descr. : {{ transaction.comment }} -       
+                # Caisse : {{ transaction.caisse.id }}
+            </li>
+            {% else %}
+            <li>
+                {{ transaction.id }} - {{ transaction.type }} - {{ transaction.montant | floatformat:2 | intcomma}} USD -
+                pour : $ {{ transaction.equiht | floatformat:2 | intcomma}} HT | Taux {{ transaction.tdj }}      
+                # Caisse : {{ transaction.caisse.id }}
+            </li>
+            {% endif %}
+            {% empty %}
+            <li>No Transactions</li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+   
+
+    <div id="apport" class="operation">Interface Apports</div>
+    <div id="depense" class="operation">Interface Depenses</div>
+
+       
+</div>
+    
+</div>
+
+
+<div class="pied">
+
+<div>
+    <a href="{% url 'topgaz:caisse' %}"><button class="bigbutton">Retour A Caisse</button></a> 
+</div>
+<div><input type="submit" name="sale_close" value="Fermeture Caisse"></div>
+</div>
+
+{% endblock %}

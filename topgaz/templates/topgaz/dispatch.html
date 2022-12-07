@@ -1,0 +1,31 @@
+{% extends "topgaz/layout.html" %}
+
+{% block title %}
+Dispatch
+{% endblock %}
+
+{% block body %}
+<h1>UniteK Multiservices</h1>
+<h2>Dispatch Page</h2>
+
+
+<div id="serv">
+    <ul>
+        <h3>Services</h3>
+        
+        <li><a href="{% url 'topgaz:index' %}">TopGaz</a></li>
+        <li><a href="">TopTek</a></li>
+        <li><a href="">TopFood</a></li>
+        <li><a href="">TopMarket</a></li>
+        <li><a href="">TopCar</a></li>
+        <li><a href="">TopKay</a></li>
+        <li><a href="">TopResto</a></li>
+        <li><a href="">TopPharma</a></li>
+        <li><a href="">TopJeux</a></li>
+        <li><a href="">TopDeals</a></li>
+
+
+    </ul>
+
+</div>
+{% endblock %}
