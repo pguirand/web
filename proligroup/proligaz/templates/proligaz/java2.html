@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+  <title>Single Page</title>
+  <style>
+    div {
+      display :none;
+    }
+  </style>
+  <script>
+
+    window.onpopstate = function(event) {
+      console.log(event.state.section);
+      showSection(event.state.section);
+    }
+    function showSection(section) {
+      fetch(`java/sections/${section}`)
+      .then(response => response.text())
+      .then(text => {
+        console.log(text);
+        //document.querySelector('h5').innerHTML = text;
+        document.querySelector('#content').style.display = 'block';
+        document.querySelector('#content').innerHTML = text;
+      });
+    }
+
+    function showPage(page) {
+      document.querySelectorAll('div').forEach(div => {
+        div.style.display = 'none';
+      })
+      document.querySelector(`#${page}`).style.display = 'block';
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('button').forEach(button => {
+        button.onclick = function() {
+          showPage(this.dataset.page);
+        }
+      });
+      document.querySelectorAll('.sec').forEach(sec => {
+        sec.onclick = function() {
+          const section = this.dataset.section;
+          //history.pushState({section: section}, "", `java/section${section}`);
+          showSection(this.dataset.section);
+        }
+      });
+
+    });
+
+  </script>
+
+</head>
+  <body>
+  <button data-page="page1">Page 1</button>
+  <button data-page="page2">Page 2</button>
+  <button data-page="page3">Page 3</button>
+<div id="page1">
+  <h1>This is page 1</h1>
+</div>
+<div id="page2">
+  <h1>This is page 2</h1>
+</div>
+<div id="page3">
+  <h1>This is page 3</h1>
+</div>
+
+<h2>Sections</h2>
+<button class="sec" data-section="1">Section 1</button>
+<button class="sec" data-section="2">Section 2</button>
+<button class="sec" data-section="3">Section 3</button>
+
+<div id="content"></div>
+<h5></h5>
+</body>
+</html>

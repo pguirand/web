@@ -1,0 +1,26 @@
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+
+<form action="{% url 'proligaz:new_client' %}" method="post">
+
+{% csrf_token %}
+
+{{ form }}
+
+<input type="submit" value="Ajouter">
+
+</form>
+
+<br><br><br>
+
+
+<ul>
+  {% for list in list3 %}
+    <li>{{ list }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'proligaz:clients' %}">Retour a Page Clients</a>
+
+{% endblock %}

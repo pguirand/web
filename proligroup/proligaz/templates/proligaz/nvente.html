@@ -1,0 +1,28 @@
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+
+<h1>Nouvelle Vente</h1>
+
+<form action="{% url 'proligaz:new_sale' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="vente">
+  <input type="submit" value="Ajouter">
+
+</form>
+
+<h2>Liste des Ventes</h2>
+
+<table border=1>
+  <tr><td>Id Vente</td><td>Date et Heure</td><td>Produit</td><td>Prix</td><td>Quantité</td></tr>
+  {% for vente in ventes %}
+  <tr><td>{{ vente.id }}</td><td>le {{ vente.date_vente }} à {{ vente.heure_vente }}</td> <td>{{ vente.produit.description }}</td><td>{{ vente.produit.prix }}</td><td>{{ vente.quantite }}</td></tr>
+  {% endfor %}
+
+
+</table><p></p>
+Total Produits achetés : {{ somme1 }} <br>
+Le nombre de ventes    : {{ count }}
+<p></p><p></p>
+<a href="{% url 'proligaz:sales' %}">Ventes</a>
+{% endblock %}

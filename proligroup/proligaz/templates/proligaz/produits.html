@@ -1,0 +1,72 @@
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+
+<h2>Produits</h2>
+
+<table width="600" border="1">
+  {% for produit in produits %}
+  <tr><td>({{ produit.code }}) :</td> <td>{{ produit.description }} est à </td> <td>$ {{ produit.prix }}</td></tr>
+  {% endfor %}
+
+  <tr><td></td><td>Le nombre de produits: {{ count }} artiches.</td><td> Montant Total : ${{ somme }}</td></tr>
+</table>
+<br>
+<div style="float:left">
+<ul>
+{% for categorie in Categories %}
+<li>{{ forloop.counter }}&nbsp&nbsp&nbsp{{ categorie.id }}: {{ categorie.nom_categorie }}</li>
+{% endfor %}
+</ul>
+<h4>Ajouter un Catégorie</h4>
+<form action="{% url 'proligaz:produits' %}" method="post">
+  {% csrf_token %}
+{{ form1 | linebreaks}}
+<!--input type="text" name="categorie" placeholder="Nom de Catégorie"-->
+<input type="submit" name="button_cat" value="Ajouter">
+</form>
+<form action="{% url 'proligaz:produits' %}" method="post">
+  {% csrf_token %}
+  <select name="cat">
+  <option value="" selected disabled hiddent>Choisir la categorie </option>
+  {% for categorie in Categories %}
+  <option value="{{ categorie.id }}"> {{ categorie.nom_categorie }}</option>
+  {% endfor %}
+  </select>
+  <input type="submit" name="del_cat" value="Effacer">
+  {{ cat_sel }}<br>
+
+  <br>
+  <select name="cat2">
+  <option value="" selected disabled hiddent>Choisir la categorie </option>
+  {% for categorie in Categories %}
+  <option value="{{ categorie.id }}"> {{ categorie.nom_categorie }}</option>
+  {% endfor %}
+  </select>
+  <input type="text" name="new_cat">
+  <input type="submit" name="upd_cat" value="Update "><br>
+  {{ cat_to_upd }}
+  {{ new_cat }}
+
+
+</form>
+
+</div>
+<div style="float:left">
+  <ul>
+    {% for poste in postes %}
+    <li>{{ poste.nom_poste }} - {{ poste.description }}</li>
+    {% endfor %}
+  </ul>
+  <h4>Ajouter un Poste</h4>
+  <form action="{% url 'proligaz:produits' %}" method="post">
+    {% csrf_token %}
+  {{ form2|linebreaks }}
+  <input type="submit" name="button_pos" value="Ajouter">
+</div>
+
+<div style="float:left"
+
+</div>
+<h4>{{ nouv }}</h4>
+{% endblock %}

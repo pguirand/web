@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style media="screen">
+
+    table {
+      border: 2px solid black;
+      width: 210px;
+      position: relative;
+      border-collapse: collapse;
+      margin: auto;
+
+    }
+    tr {
+      border: 1px solid black;
+    }
+    td:hover {
+      background-color: blue;
+      color: white;
+    }
+     td {
+      border: 1px solid black;
+      width: 70px;
+      text-align: center;
+    }
+      #affich {
+        border: 2px solid orange;
+
+
+      }
+      #left {
+        float: left;
+        width: 45%;
+        border: 1px solid red;
+      }
+      #right{
+        float: right;
+        width: 45%;
+        border: 1px solid red;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Ventes</title>
+  </head>
+
+  <body>
+
+<h1>Ventes</h1>
+
+<div id="affich"></div>
+
+<script type="text/babel">
+
+class Calcul extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      avant: 2814.5,
+      apres: 3016.8,
+      prix: 38,
+      somme: "",
+      nbgal: ""
+    };
+  }
+
+  render() {
+    let nbgal = parseFloat(this.state.apres - this.state.avant).toFixed(2)
+    this.state.result = nbgal
+    return (
+
+    <div>
+    <div id="avant"> Compteur début : {this.state.avant}</div>
+    <div id="apres"> Compteur fin   : {this.state.apres}</div>
+
+    <p></p>
+    <p></p>
+    <button>Nouvelle Vente</button>
+    <div class="cont" id="diff"> Gallons vendus  : {this.state.result}</div>
+    </div>
+      );
+
+    }
+
+}
+
+ReactDOM.render(<Calcul />, document.querySelector('#affich'));
+</script>
+
+
+  </body>
+</html>

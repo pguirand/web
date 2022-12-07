@@ -1,0 +1,19 @@
+INSERT INTO produits (description, categorie, prix) VALUES ("Coupleur Baionette", "Connecteurs", 4);
+INSERT INTO produits (description, categorie, prix) VALUES ("detendeur inverseur", "Connecteurs", 52);
+INSERT INTO produits (description, categorie, prix) VALUES ("rechaud 2 foyers", "rechauds", 65);
+INSERT INTO produits (description, categorie, prix) VALUES ("Tuyau plastique 10 pieds", "tuyauterie", 25);
+INSERT INTO produits (description, categorie, prix) VALUES ("Rechaud foyer unique", "rechauds", 49);
+INSERT INTO produits (description, categorie, prix) VALUES ("Barbecue au propane portatif", "rechaud BBQ", 200);
+INSERT INTO produits (description, categorie, prix) VALUES ("Rechaud Propane 6 foyers", "rechauds", 350);
+INSERT INTO produits (description, categorie, prix) VALUES ("Gants barbecue refractaires", "equipements", 8);
+INSERT INTO produits (description, categorie, prix) VALUES ("Indicateurs de jauge", "equipements", 22);
+INSERT INTO produits (description, categorie, prix) VALUES ("Grille Barbecue", "equipements", 42);
+INSERT INTO produits (description, categorie, prix) VALUES ("propane regulateur 83", "Connecteurs", 19);
+INSERT INTO produits (description, categorie, prix) VALUES ("pare-flammes", "equipements", 17);
+INSERT INTO produits (description, categorie, prix) VALUES ("Adaptateur de reservoir", "Connecteurs", 15);
+INSERT INTO produits (description, categorie, prix) VALUES ("Bouteille 20 livres", "bouteilles", 30);
+INSERT INTO produits (description, categorie, prix) VALUES ("Bouteille 25 livres", "bouteilles", 45);
+INSERT INTO produits (description, categorie, prix) VALUES ("Bouteille 60 livres", "bouteilles", 70);
+INSERT INTO produits (description, categorie, prix) VALUES ("Bouteille 100 livres", "bouteilles", 120);
+INSERT INTO produits (description, categorie, prix) VALUES ("Bouteille 150 livres", "bouteilles", 200);
+

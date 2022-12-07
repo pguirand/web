@@ -1,0 +1,49 @@
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+
+<h1>Liste des transactions </h1>
+
+
+
+<form action="{% url 'proligaz:transaction' %}" method="post">
+  {% csrf_token %}
+<p>Type de Transaction:</p>
+<input type="radio" name="type" id="out" value="out" checked>
+<label for="out">Dépenses</label>
+<input type="radio" name="type" id="change" value="change">
+<label for="change">Achat uS</label>
+<input type="radio" name="type" id="in" value="in">
+<label for="in">Apport</label>
+<p></p>
+<p></p>
+<div id="depense">
+<p>Dépenses:</p>
+<input type="text" name="transac">
+<input type="number" name="trans1" style="width: 4em;">
+<input type="submit" value="Ajouter"><br>
+<textarea name="comment" id="comment" rows="5" cols="60" placeholder="Votre Commentaire...">
+</textarea>
+</div>
+<div id="achat">
+<p>Achat US:</p>
+<label for="txjour">Taux Actuel:</label>
+<input type="text" name="txjour" id="txjour" size="2" readonly><p></p>
+<label for="usd">Montant :</label>
+<input type="number" name="usd" id="usd" value="" style="width: 3em;" step=1>
+<label for="gourdes">Equivalence Gourdes:</label>
+<input type="text" name="gourdes" id="gourdes" value="" size=4 readonly>
+</div>
+<div id="apport">
+<label for="">Apport :</label><br>
+<input type="text" name="description" id="description">
+<input type="number" name="valeur" id="valeur" style="width: 4em;">
+<input type="submit" value="Apporter"><br>
+<textarea name="comment2" id="comment2" rows="5" cols="60" placeholder="Votre Commentaire...">
+</textarea>
+</div>
+
+</form>
+
+
+{% endblock %}

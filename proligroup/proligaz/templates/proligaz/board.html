@@ -1,0 +1,280 @@
+{% load tz %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <style media="screen">
+      div {
+        border: 1px solid green;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Board</title>
+    <script>
+
+    function hello(){
+      const heading = document.querySelector('#par');
+      if (heading.innerHTML === 'Par Gallon') {
+        heading.innerHTML = 'Par Montant';
+      } else {
+        heading.innerHTML = 'Par Gallon';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#comment').style.display = 'none';
+      //  document.querySelector('#p2gal').value = document.querySelector('#pgal').value;
+
+
+      //document.querySelector('#conv').disabled = true;
+      document.querySelectorAll('.gal').forEach(gal => {
+        gal.onclick = function() {
+          document.querySelector('#comment').style.display = 'none';
+          const quant = this.dataset.quant;
+          console.log(quant);
+          document.querySelector('#nbgal').value = quant;
+          //const ngal = document.querySelector('#nbgal').value;
+          const p2gal = document.querySelector('#pgal').value;
+          document.querySelector('#p2gal').value = p2gal;
+          document.querySelector('#tot1').value = quant * p2gal;
+          const first = document.querySelector('#first').value;
+          const last = parseFloat(first) + parseFloat(quant);
+
+          document.querySelector('#avant').value = first;
+          document.querySelector('#apres').value = last.toFixed(1);
+
+          //clear other inputs
+          document.querySelector('#otgal').value = '';
+          document.querySelector('#montant').value = '';
+          document.querySelector('#cvtogal').value = '';
+          document.querySelector('#verse').value = '';
+          document.querySelector('#remise').value = '';
+          return false;
+        }
+      document.querySelector('#conv').onclick = function() {
+        if (document.querySelector('#montant').value >= 10) {
+          //document.querySelector('#conv').disabled = false;
+          const mont = document.querySelector('#montant').value;
+          const pgal = document.querySelector('#pgal').value;
+          const ngal = mont / pgal;
+          console.log(ngal);
+          ngal1 = (ngal - 0.05).toFixed(1);
+          const tot = pgal * ngal1;
+          const p2gal = document.querySelector('#pgal').value;
+          document.querySelector('#p2gal').value = p2gal;
+          document.querySelector('#cvtogal').value = ngal1;
+          document.querySelector('#nbgal').value = ngal1;
+          document.querySelector('#comment').style.display = 'inline';
+          document.querySelector('#comment').innerHTML = `(Pour ${mont} $HT)`;
+          document.querySelector('#tot1').value = tot;
+          const first = document.querySelector('#first').value;
+          const last = parseFloat(first) + parseFloat(ngal1);
+
+          document.querySelector('#avant').value = first;
+          document.querySelector('#apres').value = last.toFixed(1);
+
+          //clear other inputs
+          document.querySelector('#otgal').value = '';
+          document.querySelector('#verse').value = '';
+          document.querySelector('#remise').value = '';
+        } else {
+            alert(`Montant trop bas !`);
+          //document.querySelector('#conv').disabled = true;
+          }
+        return false;
+        }
+        document.querySelector('#otval').onclick = function() {
+          document.querySelector('#comment').style.display = 'none';
+          if (document.querySelector('#otgal').value >= 0.5) {
+            const otgal = document.querySelector('#otgal').value;
+            const pgal = document.querySelector('#pgal').value;
+            document.querySelector('#p2gal').value = pgal;
+            document.querySelector('#nbgal').value = otgal;
+            tot = otgal * pgal;
+            document.querySelector('#tot1').value = tot;
+
+            const first = document.querySelector('#first').value;
+            const last = parseFloat(first) + parseFloat(otgal);
+
+            document.querySelector('#avant').value = first;
+            document.querySelector('#apres').value = last.toFixed(1);
+
+            //clear other input
+            document.querySelector('#montant').value = '';
+            document.querySelector('#cvtogal').value = '';
+            document.querySelector('#verse').value = '';
+            document.querySelector('#remise').value = '';
+
+          } else {
+            alert(`Nombre de gallons insuffisant`);
+          }
+          return false;
+        }
+
+        document.querySelector('#valrem').onclick = function() {
+          const comp = parseFloat(document.querySelector('#verse').value);
+          const tot = parseFloat(document.querySelector('#tot1').value);
+          if (comp == '') {
+            alert(`Il faut entrer un montant`);
+            return false;
+          }
+          if (comp < tot) {
+
+            alert(`Montant insuffisant. Montant minimal à verser: $ ${tot} HT`);
+            return false;
+          } else {
+            const diff = comp - tot;
+            //alert(`Montant insuffisant ${comp} > ${tot} diff: ${diff}`);
+            rem = (comp - tot).toFixed(2);
+            document.querySelector('#remise').value = rem;
+            return false;
+            }
+        }
+        document.querySelector('#mod').onclick = () => {
+          document.querySelector('#pgal').disabled = false;
+          return false;
+        }
+        document.querySelector('#accept').onclick = () => {
+          if (document.querySelector('#pgal').disabled == false) {
+            const npgal = document.querySelector('#pgal').value;
+            alert(`Prix modifié. Nouveau Prix: $ ${npgal} HT`);
+            document.querySelector('#pgal').disabled = true;
+            document.querySelectorAll('.screen').forEach(screen => {
+              screen.value = '';
+            })
+            return false;
+          } else {
+            return false;
+          }
+        }
+        document.querySelector('#ajouter').onclick = function() {
+          return false;
+        }
+        document.querySelector('#valider').onclick = function() {
+        //  return false;
+        }
+      });
+
+
+    return false;
+    });
+
+
+    </script>
+  </head>
+  <body>
+
+    <h2 align="center">Interface Vente</h1>
+    <h1 align="center">{{ compt }}</h1>
+
+    <!--h1>Tableau de bord</h1>
+
+    <div style="width: 100%; overflow: hidden; display: "none">
+    <div style="width: 50%; float: left;"> Left
+
+
+    </div>
+    <div style="margin-left: auto;"> Right </div>
+
+</div--><p></p>
+<form name="form1" action="{% url 'proligaz:board' %}" method="post">
+  {% csrf_token %}
+  <div style="float: left">
+  <label for="compteur" name="c1">Compteur :</label>
+  <input id="first" type="text" name="cdebut" value="{{last.compt_apres}}" style="width: 4em; font-size: 22px;" readonly>
+  <div id="gallon" style="float: right;">
+  <label for="" name="prix">Prix Gallon : </label>
+  <input id="pgal" value="{{last.px_gallon}}" name="pg" type="number" placeholder="Prix" style="width: 3em; font-size: 22px" disabled><p></p>
+  <button id="mod">Changer</button>
+  <button id="accept">OK</button>
+  </div>
+
+  <div>
+    <label for="">Gallons:</label>
+  <button class="gal" data-quant="1">1</button>
+  <button class="gal" data-quant="1.5">1.5</button>
+  <button class="gal" data-quant="2.5">2.5</button>
+  <button class="gal" data-quant="5">5</button>
+  <button class="gal" data-quant="11">11</button>
+  <button class="gal" data-quant="22">22</button>
+  </div>
+  <br>
+
+  <label>Autre:</label><input type="number" id="otgal" style="width:3em" min=0.5 max=30 step="any">
+  <input type="button" name="others" value="OK" id="otval" >
+  <hr width=300, align="left"><p></p>
+  <label for="pour">Achat par Montant :</label>
+  <input id="montant" type="number" step="any" min=10 style="width: 5em">
+  <button id="conv">OK</button>
+  <br>Ce montant équivaut à :
+  <input type="text" size=1 id="cvtogal" readonly style="font-size: 25px;">gallons
+<p><input type="date"><input type="time"></p>
+  <p align="center"><input type="submit" name="vendre" value="Effectuer Vente" onclick="return false;"></p>
+  </div>
+
+  <div>
+    <p align="center">Fiche de Vente</p>
+
+      Nb de Gallons : <input type="text" class="screen" size=1 id="nbgal" name="nbgal" readonly style="font-size: 20px;">
+      <div id="compteur" style="float: right;">
+      <table border="1" width=200>
+        <tr>
+          <td>Avant</td>
+          <td><input type="number" class="screen" step="any" id="avant" style="font-size: 20px; width: 5em;" readonly></td>
+        </tr>
+        <tr>
+          <td>Après</td>
+          <td><input type="number" class="screen" step="any" id="apres" style="font-size: 20px; width: 5em;" readonly></td>
+        </tr>
+      </table>
+    </div>
+      <br>
+      <label id="comment" class="screen" ></label>  <br>
+      Prix du Gallon : <input type="text" class="screen" size=1 id="p2gal" name="p2gal" readonly style="font-size: 20px;">
+      <br>
+      <hr width=200 align="left">
+      Total ($ HT):<input type="text" class="screen" size=2 id="tot1" readonly style="font-size: 20px;">
+        <div id="valid" style="float: right;">
+        <button id="ajouter">Ajouter</button>
+        <input type="submit" id ="valider" name="valid" value="Valider">
+        <input type="submit" id ="fermer" name="fermer" value="Fermer Vente">
+        </div>
+        <div id="payment">
+        <p>Type de Paiement :</p>
+        <input type="radio" name="pay" id="cash" value="cash" checked>
+        <label for="cash">Cash</label>
+        <input type="radio" name="pay" id="credit" value="credit">
+        <label for="credit">Crédit</label>
+        <input type="radio" name="pay" id="check" value="check">
+        <label for="credit">Chèque</label>
+      </div>
+      <div id="monnaie">
+      Versé ($HT):<input type="number" class="screen" size=2 id="verse" style="font-size: 20px; width: 3em;" step=1>
+      <button id="valrem">OK</button>
+      Remise ($ HT):<input type="text" class="screen" size=4 id="remise" readonly style="font-size: 20px;">
+      </div>
+      <br>
+  </div>
+</form>
+<p></p>
+<div style="float: left; margin: auto">
+<p align="center">Remplissages {{ avant }} {{ debut }} {{ fin }} {{ after }}</p>
+<table border="1">
+  <tr>
+    <td>No</td><td>ID</td><td>Debut</td><td>Avant</td><td>Apres</td><td>Quantité</td>
+    <td>Px Gal</td><td>montant</td><td>Ht Pour</td><td>Fin</td><td>Heure Remplissage</td>
+    <td>Paiement</td><td>Statut</td>
+  </tr>
+{% for rempl in ls_remp %}
+  <tr>
+    <td>{{ forloop.counter }}</td><td>{{ rempl.id }}</td><td>{{rempl.compt_debut}}</td>
+    <td>{{rempl.compt_avant}}</td><td>{{rempl.compt_apres}}</td>
+    <td>{{rempl.quantite}}</td><td>{{rempl.px_gallon}}</td><td>{{rempl.montant}}</td>
+    <td>{{rempl.achat_pour}}</td><td>{{rempl.compt_fin}}</td><td>{{rempl.heure_rempl}}</td>
+    <td>{{rempl.type_pay}}</td><td>{{rempl.statut}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+
+  </body>
+</html>

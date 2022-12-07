@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style media="screen">
+
+    table {
+      border: 2px solid black;
+      width: 210px;
+      position: relative;
+      border-collapse: collapse;
+      margin: auto;
+
+    }
+    tr {
+      border: 1px solid black;
+    }
+    td:hover {
+      background-color: blue;
+      color: white;
+    }
+     td {
+      border: 1px solid black;
+      width: 70px;
+      text-align: center;
+    }
+      div {
+        border: 1px solid black;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Ventes</title>
+  </head>
+
+  <body>
+    <h1>Ventes</h1>
+
+    <div style="width: 100%; display: table;">
+    <div style="display: table-row">
+        <div style="width: 600px; display: table-cell;"> Left </div>
+        <div style="display: table-cell;"> Right </div>
+
+
+    </div>
+</div>
+<p></p>
+<p></p>
+<table>
+  <tr>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>8</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td>DEL</td>
+    <td>0</td>
+    <td>OK</td>
+  </tr>
+
+</table>
+<p></p>
+<p></p>
+Taux du jour :
+<br><br><br><br>
+
+  Compteur ouvert a:
+  <br><br>
+  Compteur actuel :
+  <br><br>
+  Nombre galons vendus:
+  <br>
+  <br>
+
+  <button>Nouvelle Vente</button>
+
+  <button>Caisse</button>
+<div id="affich"></div>
+
+<script type="text/babel">
+
+class Calcul extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      avant:"2814.5",
+      apres:"3016.8",
+      result:""
+    };
+  }
+
+  render() {
+    return (
+    <div id="avant"> Compteur avant : {this.state.avant}</div>
+    <div id="apres"> Compteur après : {this.state.apres}</div>
+    <p></p>
+    <p></p>
+    <div id="diff"> Gallons vendus : {this.state.result}</div>
+  );
+
+  }
+}
+
+ReactDOM.render(<Calcul />, document.querySelector('#affich'));
+</script>
+
+
+  </body>
+</html>

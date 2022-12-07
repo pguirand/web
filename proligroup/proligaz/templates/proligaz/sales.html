@@ -1,0 +1,31 @@
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+{% load humanize %}
+
+<h2>Liste des Ventes</h2>
+
+<table border=1>
+  <tr><td>Vente</td><td>Date et Heure</td><td>Produit</td>
+    <td>Prix Unit.</td><td>Quantité</td><td>Prix Total</td></tr>
+  {% for vente in total %}
+  <tr><td>
+      <a href="{% url 'proligaz:sale' vente.id %}">
+      No.{{ vente.id }} </a></td><td>le {{ vente.date_vente }} à {{ vente.heure_vente }}</td>
+      <td>{{ vente.produit.description }}</td><td>$ {{ vente.produit.prix }}</td>
+      <td>{{ vente.quantite }}</td><td>$ {{ vente.result }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<p></p>
+<p></p>
+
+<h4>
+Le nombres de ventes est de {{ countv }}<br>
+Le nombre d'articles vendus est  {{ sumv }} <br>
+Le montant total en ventes est de $ {{ montant2|floatformat:2|intcomma }}
+</h4>
+<br><br><br>
+<a href="{% url 'proligaz:index' %}"> Accueil </a><br><br>
+<a href="{% url 'proligaz:new_sale' %}">Nouvelle Vente</a>
+{% endblock %}

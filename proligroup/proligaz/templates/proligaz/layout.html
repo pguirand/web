@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block body %}
+
+    {% endblock %}
+
+    {% block trans_scripts %}
+    <script scr="script1.js">
+    alert(`Hello !`);
+    </script>
+    {% endblock trans_scripts %}
+  </body>
+</html>

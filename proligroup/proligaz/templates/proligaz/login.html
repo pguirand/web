@@ -1,0 +1,22 @@
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+
+
+{% if message %}
+  <div><h4>{{ message }}</h4> </div>
+{% endif %}
+<br><br>
+
+<form action="{% url 'proligaz:login' %}" method="post">
+
+  {% csrf_token %}
+
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+
+  <input type="submit" value="Login">
+
+</form>
+
+{% endblock %}

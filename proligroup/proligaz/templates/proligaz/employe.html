@@ -1,0 +1,17 @@
+{% extends "proligaz/layout.html" %}
+
+
+{% block body %}
+{% load humanize %}
+<h1>Liste Employés</h1>
+<table width=600 border="1">
+  <tr style="font-weight:bold">
+    <td>Employés</td><td>Poste</td><td>Salaire ($ US)</td>
+  </tr>
+  {% for employe in emp %}
+  <tr><td>{{ employe.prenom }}, {{ employe.nom }}</td><td>{{ employe.poste.nom_poste }}</td> <td>{{ employe.salaire_base|floatformat:2|intcomma }}</td></tr>
+  {% endfor %}
+</table>
+<br><br><br>
+<a href="{% url 'proligaz:index' %}"> Accueil</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Manoucheka", "GENTIL", "4818-7551");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Marie Bedia", "CENATUS", "2112-6804");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Charles", "BRONSON", "4115-2852");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Emmanuel", "LEGER", "3562-1100");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Robert", "GUILLAUME", "3715-9087");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Carolane", "BAPTISTE", "3698-5012");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Johanna", "GRANVIL", "4618-2107");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Karine", "BIEN-AIME", "3101-0088");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Junior", "PIERRE", "4554-3146");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Eric", "ABIDAL", "3298-7785");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Oliver", "JEAN", "4987-8798");
+INSERT INTO clients (first_name, last_name, phone1) VALUES ("Jerome", "MESADIEU", "4035-6549");
+

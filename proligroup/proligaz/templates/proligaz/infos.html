@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <style media="screen">
+
+      h2 {
+        position: relative;
+        margin: auto;
+
+      }
+    #touches {
+      display: none;
+      border: 2px solid black;
+      width: 210px;
+      position: relative;
+      border-collapse: collapse;
+      margin: auto;
+    }
+
+    #bord1 {
+      border: 2px solid black;
+      width: 300px;
+      position: relative;
+      border-collapse: collapse;
+      margin: auto;
+    }
+
+    #bord2 {
+      border: 2px solid black;
+      width: 500px;
+      position: relative;
+      border-collapse: collapse;
+      margin: auto;
+    }
+
+    #sep1{
+      height:10px;
+      background-color: black;
+      border: 3px solid black;
+    }
+
+    tr {
+      border: 1px solid black;
+    }
+    td:hover {
+      background-color: blue;
+      color: white;
+    }
+     td {
+      border: 1px solid black;
+      width: 70px;
+      text-align: center;
+    }
+      div {
+        border: 1px solid black;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Ventes</title>
+
+    <script>
+
+    //  function data {
+      //  fetch(`/sales/`)
+      //  .then(response => response.text())
+      //  .then(text => {
+      //    document.querySelector('#cont').innerHTML = text;
+
+      //  });
+    //  }
+
+    //  document.addEventListener('DOMContentLoaded', funtion() {
+
+    //  })
+      </script>
+
+  </head>
+
+  <body>
+
+      <div style="width: 100%; display: none;">
+      <!--div style="width: 100%; display: table;"-->
+      <div style="display: table-row">
+          <div style="width: 600px; display: table-cell;"> Left </div>
+          <div style="display: table-cell;"> Right </div>
+      </div>
+      </div>
+<h2>Valeur Globale</h2>
+
+<ul>
+{% for client in glo %}
+<li> {{ client }} </li>
+{% endfor %}
+</ul>
+
+<table id="touches">
+  <caption>Calculette</caption>
+  <tr>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>8</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td>DEL</td>
+    <td>0</td>
+    <td>OK</td>
+  </tr>
+
+</table>
+<br><br>
+
+<table id="bord1">
+  <caption>Infos Clients</caption>
+  <tr>
+    <td>Taux du jour :</td>
+    <td>Prix Gallon  :</td>
+  </tr>
+  <tr>
+    <td>{{ tx }}</td>
+    <td>{{ pg }}</td>
+  </tr>
+</table>
+<br>
+
+<table id="bord2">
+  <caption>Tableau de Ventes</caption>
+  <tr>
+    <td> Compteur début  :</td>
+    <td> Gallons vendus  :</td>
+    <td> Compteur Actuel :</td>
+  </tr>
+  <tr>
+    <td>{{ compt1 }}</td>
+    <td>{{ ng }}</td>
+    <td>{{ compt2 }}</td>
+  </tr>
+</table>
+<br>
+<table id="bord2">
+  <caption>Infos Administrateur</caption>
+  <tr>
+    <td> Prix Achat Gallon (USD) </td>
+    <td> Prix Vente Gallon (USD)</td>
+    <td> Profit par Gallon (USD)</td>
+  </tr>
+  <tr>
+    <td>{{ pa1usd }}</td>
+    <td>{{ pv1usd }}</td>
+    <td>{{ ben1usd }}</td>
+  </tr>
+
+  <tr id="sep1"></tr>
+
+  <tr>
+    <td> Somme ventes ($ HT) </td>
+    <td> Somme ventes (USD)</td>
+    <td> Profit Total (USD)</td>
+  </tr>
+  <tr>
+    <td>{{ pvtothtd }}</td>
+    <td>{{ pvtotusd }}</td>
+    <td>{{ bentotusd }}</td>
+  </tr>
+</table>
+
+<ul>
+  {% for list in lists %}
+    <li>{{ list }}</li>
+  {% endfor %}
+</ul>
+
+<table width=500 align="center">
+  <tr>
+    <td><a href="{% url 'proligaz:sales' %}"> Ventes </a></td>
+    <td><a href="{% url 'proligaz:new_sale' %}">Nouvelle Vente</a></td>
+    <td><a href="{% url 'proligaz:clients' %}">Page Clients</a></td>
+  </tr>
+</table>
+
+
+<p></p>
+<p></p>
+  <button>Caisse</button>
+
+
+  </body>
+</html>

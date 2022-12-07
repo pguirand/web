@@ -1,0 +1,2 @@
+INSERT INTO produits (description, categorie, prix) VALUES ("Coupleur Baionette", "Connecteurs", 2);
+INSERT INTO produits (description, categorie, prix) VALUES ("Coupleur Baionette", "Connecteurs", 2);INSERT INTO produits (description, categorie, prix) VALUES ("Coupleur Baionette", "Connecteurs", 2); 

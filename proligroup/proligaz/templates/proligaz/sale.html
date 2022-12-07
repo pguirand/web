@@ -1,0 +1,43 @@
+
+{% extends "proligaz/layout.html" %}
+
+{% block body %}
+
+<h1>Vente # {{ sale.id }}</h1>
+
+<ul>
+  <li> Date de Vente : {{ sale.date_vente }}</li>
+  <li> Heure de Vente : {{ sale.heure_vente }}</li>
+  <li> Produit : {{ sale.produit.description }}</li>
+  <li> Prix du Produit : $ {{ price }}</li>
+  <li> Quantité vendue : {{ sale.quantite }}</li>
+  <li> Acheté par : {{ sale.client.prenom }}, {{ sale.client.nom }}</li>
+  <li> Téléphones client : {{ sale.client.phone1 }}</li>
+  <br><hr width=300, align="left">
+  <li><h4>Montant Total Facture : $ {{ facture }}</h4></li>
+</ul>
+
+<br>
+<h2>Supervisé par :</h2>
+<ul>
+  {% for client in supervisors %}
+  <li>{{ client.prenom }} {{ client.nom }}</li>
+  {% empty %}
+  <li>Aucun employé</li>
+  {% endfor %}
+</ul>
+
+<h2>Ajouter un superviseur</h2>
+
+<form action="{% url 'proligaz:supervise' sale.id %}" method="post">
+{% csrf_token %}
+<select name="supervisor">
+{% for supervisor in non_supervisors %}
+<option value="{{ supervisor.id }}">{{ supervisor.prenom }} {{ supervisor.nom}}</option>
+{% endfor %}
+</select>
+<input type="submit" value="Ajouter">
+</form>
+<br><br>
+<a href="{% url 'proligaz:sales' %}"> Retout a Ventes </a>
+{% endblock %}

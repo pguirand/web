@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Hello !</title>
+      <script>
+
+
+      if (!localStorage.getItem('counter')) {
+        localStorage.setItem('counter', 0);
+
+      }
+      //let counter = 0;
+      function count() {
+        let counter = localStorage.getItem('counter');
+        counter ++;
+        document.querySelector('#chrono').innerHTML = counter;
+        localStorage.setItem('counter', counter);
+        //if (counter % 10 === 0) {
+        //  alert(`Count is now ${counter}`);
+        //}
+        }
+
+        //document.addEventListener('DOMContentLoaded', function() {
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#chrono').innerHTML = localStorage.getItem('counter');
+            //setInterval(count, 1000);
+
+            // Currency API
+
+            document.querySelector('#form2').onsubmit = function() {
+              fetch('https://api.exchangeratesapi.io/latest?base=USD')
+              .then(response => response.json())
+              .then(data => {
+                //console.log(data);
+                const currency = document.querySelector('#currency').value.toUpperCase();
+                const rate = data.rates[currency];
+                //const rate = data.rates.EUR;
+                if (rate !== undefined) {
+                  document.querySelector('#result').innerHTML = `1 USD is equal to ${rate.toFixed(3)} ${currency}.`;
+                } else {
+                  document.querySelector('#result').innerHTML = `Invalid Currency.`;
+                }
+                document.querySelector('#currency').value = '';
+
+              })
+
+              .catch(error => {
+                console.log('Error:', error);
+              })
+              return false
+            }
+
+            //document.querySelectorAll('button').forEach(function(button) {
+            document.querySelectorAll('button').forEach(button => {
+              button.onclick = function() {
+                document.querySelector('#hello').style.color = button.dataset.color;
+              }
+              document.querySelector('select').onchange = function() {
+                document.querySelector('#hello').style.color = this.value;
+              }
+
+              // by default disable submit button
+
+              document.querySelector('#submit').disabled = true;
+
+            //  document.querySelector('#task').onkeyup = () => {
+              document.querySelector('#task').onmouseover = () => {
+                if (document.querySelector('#task').value.length > 0) {
+                document.querySelector('#submit').disabled = false;
+              } else {
+                document.querySelector('#submit').disabled = true;
+              }
+
+              }
+              document.querySelector('form').onsubmit = () => {
+                const task = document.querySelector('#task').value;
+                //console.log(task);
+                //document.CreateElement
+                const li = document.createElement('li');
+                li.innerHTML = task;
+
+                document.querySelector('#tasks').append(li);
+                document.querySelector('#task').value = '';
+
+                document.querySelector('#submit').disabled = true;
+
+
+
+                //Not submitting form
+                return false;
+              }
+
+
+
+
+
+            });
+
+
+          /*  document.querySelector('#greet').onclick = function() {
+              name = document.querySelector('#name').value;
+              alert(`Hello, ${name}!`);
+            }
+
+            //change color to red
+            document.querySelector('#red').onclick = function() {
+              document.querySelector('#hello').style.color = 'red';
+            }
+            //change font color to blue
+            document.querySelector('#blue').onclick = function() {
+              document.querySelector('#hello').style.color = 'blue';
+
+              //change font color to green
+            document.querySelector('#green').onclick = function() {
+              document.querySelector('#hello').style.color = 'green';
+              }
+            }*/
+          });
+      </script>
+  </head>
+  <body>
+      <h1 id="hello">Hello !</h1>
+
+          <!--input autofocus type="text" id="name" value="" placeholder="Name">
+            <input type="submit">
+            <button id="greet">greet</button-->
+            <!--button id="red">red</button>
+            <button id="blue">blue</button>
+            <button id="green">green</button-->
+
+            <button data-color="red">red</button>
+            <button data-color="blue">blue</button>
+            <button data-color="green">green</button>
+
+            <select>
+              <option value="black">Black</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+            <p></p>
+            <p></p>
+            <h2>Tasks</h2>
+            <form>
+              <input id="task" placeholder="Nouvelle Tache" type="text">
+              <input type="submit" id="submit" value="Ajouter">
+            </form>
+
+
+            <ul id="tasks">
+            </ul>
+
+            <h2>Chrono:</h2><h2 id="chrono"></h2>
+            <p></p>
+            <h2>Currencies</h2>
+            <div id="zone3">
+              <form id="form2">
+                  <input type="text" id="currency" placeholder="Entrer la monnaie a convertir">
+                  <input type="submit" value="Convert" id="convert">
+              </form>
+              <br>
+              </div>
+              <div id="result">
+              </div>
+
+  </body>
+</html>
