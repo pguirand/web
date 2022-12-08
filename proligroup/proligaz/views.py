@@ -278,18 +278,3 @@ def test(request):
 def java2(request):
     return render(request, "proligaz/java2.html")
 
-texts = ["Lorem ipsum dolor sit amet. Ex eligendi rerum non aspernatur delectus eos quia architecto non temporibus eligendi. Et corrupti omnis in sapiente cumque qui quasi provident est error vitae eum labore sequi nam fuga illum et quod quaerat. Aut esse repellat vel mollitia numquam est earum impedit 33 quibusdam reiciendis! A distinctio cumque eos esse beatae ea voluptatem assumenda ex sunt soluta. ",
-         "Sed quas velit eum voluptatem nulla est eligendi amet aut ducimus dolores in soluta tenetur qui cumque quidem qui quia necessitatibus. Eos consequatur quasi ab officia autem ea soluta sequi ab laborum dolorem vel cupiditate omnis qui impedit ratione nam magnam quia. Ut reprehenderit quis aut ipsam omnis ea odio minima id officiis omnis. Et dignissimos nihil ut vitae vitae qui necessitatibus magnam 33 sunt quaerat et officia voluptatem aut velit soluta. ",
-         "Sed consequatur porro in illum inventore et facere beatae et exercitationem fuga sed officiis obcaecati non velit neque sed doloremque quia. Non accusamus adipisci et expedita dolorum sit sint rerum et veniam voluptas est suscipit repellendus ut consequatur aliquid. Sed quia eveniet ea minima nostrum ut veniam voluptatem et facilis animi. Aut voluptatem nihil a cumque adipisci ea dolor quaerat est nihil recusandae et quia quia. "]
-
-def section(request, num):
-    if 1 <= num <= 3:
-        return HttpResponse(texts[num -1])
-    else:
-        raise Http404("No Such Section")
-
-def test3(request):
-    return render(request, "proligaz/test3.html")
-
-def test4(request):
-    return render(request, "proligaz/test4.html")
