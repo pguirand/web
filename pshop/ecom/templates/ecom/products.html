@@ -1,0 +1,46 @@
+{% extends "ecom/layout.html" %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'ecom/style.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container-sm">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center"> {{ category.name }} </h2>
+            <hr>
+            <div class="row">
+                {% for item in products %}
+                <div class="col-sm-3 text-center">
+                    <div class="card">
+                        <a href="{% url 'ecom:productview' category.slug item.slug %}">
+                            <div class="card-body mb-3 box-shadow h-100">
+                                <div class="category-image">
+                                    {% if item.product_image %}
+                                    <img class="mw-100 img-fluid img1" src="{{item.product_image.url}}" alt="Category Image">
+                                    {% endif %}
+                                </div>
+                                <h5 class="text-center"> {{ item.name }} </h5> 
+                                <span class="float-start"> {{ item.original_price | stringformat:'d'}} </span>
+                                <span class="float-end"> {{ item.selling_price | stringformat:'d'}} </span>
+
+                                <!-- <h5 class="{% static 'ecom/products/uploads' %}">dad</h5> -->
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a href="{% url 'ecom:collections' %}">Return a Collections</a>
+
+
+{% endblock %}

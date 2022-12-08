@@ -1,0 +1,87 @@
+body {
+    /* background-color: aqua; */
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.img1 {
+    height: 120px;
+    width: auto;
+}
+.path a{
+    text-decoration: none;
+}
+
+.ctrend {
+    background-color: aqua;
+    font-size: 16px;
+}
+.product-viewtag {
+    background-color: red;
+    color :#fff;
+    font-size: 11px;
+    line-height: 1;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: -5px;
+    left: -260px;
+    border-radius: 5px;
+    margin-left: 17.5rem;
+    padding: 7px 10px;
+    font-weight: 600;
+    min-width: 55px;
+
+}
+button.action {
+    font-size: 9px;
+}
+
+.delete-cart-item, .deleteitem, .delwishitem  {
+    font-size: 10px;
+}
+
+
+
+#qte-data {
+    width: 5px;
+}
+
+.active {
+    font-weight: 800;
+    padding: 10px;
+}
+
+.checkoutform {
+    background-color: rgb(248, 235, 220);
+}
+.checkoutform label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.checkoutform input {
+    font-size: 14px;
+}
+.search-bar {
+    width: 25%;
+    margin-left: 5px;
+}
+
+.homediv {
+    /* background-color: antiquewhite; */
+}
+
+.homediv input {
+    /* font-size: 8px; */
+}
+
+.homediv .adjust {
+    /* background-color: aquamarine;
+    padding: 0px;
+    height: 10px; */
+}

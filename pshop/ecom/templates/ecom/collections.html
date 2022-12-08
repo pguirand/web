@@ -1,0 +1,42 @@
+{% extends "ecom/layout.html" %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'ecom/style.css' %}">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="container-sm">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Collections</h2>
+            <hr>
+            <div class="row">
+                {% for item in collections %}
+                <div class="col-sm-3 text-center">
+                    <div class="card">
+                        <a href="{% url 'ecom:collectionview' item.slug %}">
+                            <div class="card-body mb-3 box-shadow h-100">
+                                <div class="category-image">
+                                    <img class="mw-100 img-fluid img1" src="{{item.image.url}}" alt="Category Image">
+                                </div>
+                                <h5 class="text-center"> {{ item.name }} </h5> 
+                                <!-- <h5 class="{% static 'ecom/products/uploads' %}">dad</h5> -->
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a href="{% url 'ecom:index' %}">Return Home</a>
+
+
+{% endblock %}

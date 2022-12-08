@@ -1,0 +1,63 @@
+{% extends "ecom/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card shadow">
+                    <div class="card-body cartdata">
+                        {% if cart %}
+                            {% for item in cart %}
+                                <div class="row product-data">
+                                    <div class="col-sm-2 my-auto">
+                                        <img src="{{ item.product.product_image.url }}" height="70px" width="70px" alt="image here">
+                                    </div>
+                                    <div class="col-sm-3 my-auto">
+                                        <h6> {{ item.product.name }} </h6>
+                                    </div>
+                                    <div class="col-sm-2 my-auto">
+                                        <h6> {{ item.product.selling_price }} </h6>
+                                    </div>
+                                    <div class="col-sm-3 my-auto">
+                                        <input type="hidden" class="prod_id" value=" {{ item.product_id }} ">
+                                        {% csrf_token %}
+                                        {% if item.product.quantity >= item.product_qty %}
+                                        <label for="Quantity">Quantity</label>
+                                        <div class="input-group text-center mb-3" style="width: 120px;">
+                                            <button class="input-group-text decrement-btn changeQty">-</button>
+                                            <input type="text" name="quantity" id="qte-data" class="qty-input form-control text-center" value="{{item.product_qty}}">
+                                            <button class="input-group-text increment-btn changeQty">+</button>
+                                        </div>
+                                        {% else %}
+                                            <h6>Out of Stock</h6>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-2 my-auto">
+                                        <button class="btn btn-danger deleteitem">
+                                            <i class="fa fa-trash"></i>
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                            <a href="{% url 'ecom:checkout' %}" class="btn btn-outline-success float-end">Checkout</a>
+                        {% else %}
+                            <h5>Your Cart is empty</h5>
+                        {% endif %}
+
+                           
+
+{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
